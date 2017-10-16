@@ -1,0 +1,148 @@
+﻿@model Projeto_Integrador.Models.Database.PESSOA
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>PESSOA</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(model => model.FPE_PESSOA, "Foto")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FPE_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.NOM_PESSOA,"Nome")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOM_PESSOA) @Html.DisplayFor(model => model.SNO_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.DNA_PESSOA,"Data de Nascimento")
+        </dt>
+
+        <dd>
+            @Model.DNA_PESSOA.ToShortDateString()
+            @*@Html.DisplayFor(model => model.DNA_PESSOA.ToString("dd/MM/yyyy"))*@
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.DCA_PESSOA,"Data de Cadastro")
+        </dt>
+
+        <dd>
+            @Model.DCA_PESSOA.ToShortDateString()
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.SEX_PESSOA,"Sexo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SEX_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.PAI_PESSOA,"País")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PAI_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.CID_PESSOA,"Cidade")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CID_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.BAI_PESSOA,"Bairro")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BAI_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.END_PESSOA,"Endereço")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.END_PESSOA) @Html.DisplayFor(model => model.NEN_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.CEP_PESSOA, "CEP")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CEP_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.TEL_PESSOA,"Telefone")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TEL_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.TEM_PESSOA,"Telefone de Emergência")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TEM_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.RG_PESSOA,"RG")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RG_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.EMA_PESSOA,"E-mail")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMA_PESSOA)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.ALUNO.CPF_ALUNO,"CPF")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ALUNO.CPF_ALUNO)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.FUNCIONARIO.CTP_PESSOA,"CTPS")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FUNCIONARIO.CTP_PESSOA)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.CPF_PESSOA }) |
+    @Html.ActionLink("Voltar a lista", "Index")
+</p>

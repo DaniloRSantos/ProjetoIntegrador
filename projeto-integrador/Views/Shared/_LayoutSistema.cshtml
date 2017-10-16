@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0088cc">
+    <meta charset="utf-8" />
+
+    <!-- Importação de CSS -->
+    <link rel="stylesheet" href="~/Contents/CSS/grid.min.css" />
+    <link rel="stylesheet" href="~/Contents/Font Awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Contents/CSS/main-style.min.css" />
+
+    <title>@ViewBag.Title</title>
+</head>
+<body style="background-color:rgba(203, 203, 210, 0.15);">
+
+    <div class="navbar">
+        <div class="menu-lateral">
+            <div class="logotipo">
+                <a href="~/Sistema/Inicio">Seven Days</a>
+            </div>
+            <img src="~/Contents/Imagens/Perfil/perfil-branco.png" />
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-heartbeat" aria-hidden="true"></i>
+                        Treinos
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-trophy" aria-hidden="true"></i>
+                        Ranking
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        Medições
+                    </a>
+                </li>
+                <li>
+                    <a href="~/Sistema/Sobre">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        Sobre
+                    </a>
+                </li>
+                <li class="icone-rodape">
+                    <a href="~/Conta/Sair">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Sair
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="menu-horizontal-superior">
+            <a href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+            <p>Início</p>
+        </div>
+        <div class="menu-horizontal-inferior">
+            <div class="row">
+                <div class="col-xs-3 tab-atual">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    <p>Início</p>
+                </div>
+                <div class="col-xs-3">
+                    <i class="fa fa-heartbeat" aria-hidden="true"></i>
+                    <p>Treinos</p>
+                </div>
+                <div class="col-xs-3">
+                    <i class="fa fa-trophy" aria-hidden="true"></i>
+                    <p>Ranking</p>
+                </div>
+                <div class="col-xs-3">
+                    <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                    <p>Medições</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="conteudo">
+        @RenderBody()
+    </div>
+
+    <!-- Importação de Scripts -->
+    <script src="~/Contents/JS/jquery-3.2.1.min.js"></script>
+</body>
+</html>

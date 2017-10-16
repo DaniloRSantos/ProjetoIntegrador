@@ -1,0 +1,66 @@
+﻿.formulario-login
+	width: 300px
+	margin-top: 150px
+	margin-left: auto
+	margin-right: auto
+	border: 1px solid $cinza-90
+	border-radius: 5px
+	box-shadow: 0px 3px 10px $cinza-80
+
+	@media (max-width: $tela-grande)
+		width: 80%
+		border: none
+		border-radius: 0px
+		box-shadow: none
+		margin-top: 45%
+
+	@media (max-width: $tela-media)
+		width: 85%
+		margin-top: 40%
+
+	@media (max-width: $tela-pequena)
+		width: 100%
+		margin-top: 35%
+
+	i
+		font-size: 90px
+		display: table
+		margin: 10px auto 20px auto
+		color: $azul-40
+
+	input
+		display: table
+		margin-left: auto
+		margin-right: auto
+		text-align: center
+		width: 90%
+		border-radius: 3px
+
+		@media only screen and (max-width: $tela-grande)
+			width: 100%
+
+		&[type="email"], &[type="password"]
+			margin-bottom: 10px
+			border: 1px solid $cinza-80
+			height: 40px
+			font-size: 20px
+			font-weight: $light
+
+		&[type="submit"]
+			background-color: $azul-40
+			border: 1px solid $azul-30
+			height: 40px
+			font-size: 20px
+			color: white
+			margin-bottom: 10px
+			font-weight: $regular
+
+.mensagem-erro-login
+	display: table
+	margin: 0px auto 10px auto
+
+	ul
+		li
+			list-style-type: none
+			font-size: 15px
+			color: red

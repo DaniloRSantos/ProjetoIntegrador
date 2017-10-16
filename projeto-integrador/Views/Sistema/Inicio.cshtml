@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_LayoutSistema.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-5 posicao-inicio">
+        <p>Sua posição atual no Ranking</p>
+    </div>
+    <div class="col-md-5 col-md-offset-2 exercicio-inicio">
+        <p>Próximos Exercícios</p>
+        @if(ViewBag.NomeExercicio == null)
+        {
+            <p>Não há exercicios</p>
+        }
+        else
+        {
+            <p>@ViewBag.NomeExercicio</p>
+            <p>@ViewBag.RepeticoesExercicio vezes</p>
+            <p>@ViewBag.SeriesExercicio sequências</p>
+        }
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Entrar";
+    Layout = "~/Views/Shared/_LayoutConta.cshtml";
+}
+
+<div class="col-md-4 col-md-offset-4">
+    <div class="formulario-login">
+        <i class="fa fa-user-o" aria-hidden="true"></i>
+        @using (Html.BeginForm("Entrar", "Conta"))
+        {
+            @Html.TextBox("Email", null, new { @placeholder = "E-mail", @Type = "email"});
+            @Html.Password("Senha", null, new { @placeholder = "Senha"});
+
+            @Html.ValidationSummary(null, new { @Class="mensagem-erro-login" })
+
+            <input class="button-form" type="submit" value="Entrar">
+        }
+    </div>
+</div>
+

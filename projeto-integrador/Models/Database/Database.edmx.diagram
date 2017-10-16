@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7db4fab20d69471ea5300b1d57022b5f" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.ALUNO" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ALUNO_OBJETIVO" Width="1.5" PointX="8.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CADASTRO_OBJETIVO" Width="1.5" PointX="6" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EXERCICIO" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.FUNCAO" Width="1.5" PointX="3.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.FUNCIONARIO" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.GRUPO_MUSCULAR" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MEDICAO" Width="1.5" PointX="11.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PESSOA" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TREINAMENTO" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_CPF_ALUNO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CPF_ALUNO_AOBJETIVO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CPF_ALUNO_TREINAMENTO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CPF_FUNCIONARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CPF_MEDICAO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_COD_OBJETIVO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_COD_EXERCICIO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_COD_GRUPO_MUSCULAR" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_FUNCIONARIO_FUNCAO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CPF_FUNCIONARIO_MEDICAO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CPF_PESSOA" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.FICHA" Width="1.5" PointX="5.25" PointY="15.625" />
+        <EntityTypeShape EntityType="Model.FICHA_SIGLA" Width="1.5" PointX="8.5" PointY="11.875" />
+        <AssociationConnector Association="Model.FK_FICHA" />
+        <AssociationConnector Association="Model.FK_FICHA_SIGLA_ALUNO" />
+        <AssociationConnector Association="Model.FK_FICHA_SIGLA_FICHA" />
+        <AssociationConnector Association="Model.FK_TREINAMENTO_FICHA_SIGLA" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
