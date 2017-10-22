@@ -281,6 +281,8 @@
     <Content Include="Views\Adm\Sobre.cshtml" />
     <Content Include="Views\Ficha\Index.cshtml" />
     <Content Include="Views\Ficha\CadastrarFicha.cshtml" />
+    <Content Include="Views\Ficha\FichasAluno.cshtml" />
+    <Content Include="Views\Ficha\CadastroFichaAluno.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

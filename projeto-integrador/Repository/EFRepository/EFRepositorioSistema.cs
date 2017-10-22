@@ -11,6 +11,11 @@ namespace Projeto_Integrador.Repository.EFRepository
     {
         private readonly Entities context = new Entities();
 
+        public IEnumerable<FICHA> ContagemFicha()
+        {
+            return context.FICHA;
+        }
+
         public EXERCICIO ProcurarExercicioPorCodigo(decimal codigo)
         {
             return context.EXERCICIO.Where(x => x.COD_EXERCICIO == codigo).SingleOrDefault();
@@ -19,6 +24,19 @@ namespace Projeto_Integrador.Repository.EFRepository
         public TREINAMENTO ProcurarProximoTreinamento(long cpf)
         {
             return context.TREINAMENTO.Where(x => x.CPF_ALUNO == cpf).First();
+        }
+
+        public FICHA VerificarExistenciaFicha(long? CPF)
+        {
+            var ficha = context.FICHA.Where(x => x.CPF_ALUNO == CPF).FirstOrDefault();
+            if(ficha == null)
+            {
+                return null;
+            }
+            else
+            {
+                return ficha;
+            }
         }
     }
 }

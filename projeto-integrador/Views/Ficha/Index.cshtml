@@ -17,10 +17,27 @@
                 url: "/Ficha/CadastrarAluExpecifico",
                 data: { CPF: NumCpf }
             }).done(function (data) {
-                if (data == true) {
-                    console.log("Valor Vazio")
+                if (data == false)
+                {
+                    var decisao = confirm("Não há ficha para esse aluno. Deseja cadastrar?")
+                    if (decisao)
+                    {
+                        $.ajax({
+                            dataType: "json",
+                            type: "POST",
+                            url: "/Ficha/CadastrarFicha",
+                            data: { CPF: NumCpf }
+                        }).done(function (data) {
+                            if (data) {
+
+                                alert("Ficha adicionada")
+                                window.location.href = '@Url.Action("FichasAluno", "Ficha")';
+                            }
+                        });
+                    }                   
+                   
                 } else {
-                    console.log("Valor ok")
+                    window.location.href = '@Url.Action("FichasAluno", "Ficha")';
                 }
             });
         })
@@ -31,11 +48,10 @@
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CPF_PESSOA, "Cpf do Aluno", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.CPF_PESSOA, "Selecione o nome:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("CPF_PESSOA", null, htmlAttributes: new { @class = "form-control" })
-            @*@Html.DropDownList("CPF_PESSOA", new SelectList(), "Select Gender", new { @class = "form-control" })*@
-            @Html.ValidationMessageFor(model => model.CEP_PESSOA, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.CPF_PESSOA, "", new { @class = "text-danger" })
         </div>
     </div>
 

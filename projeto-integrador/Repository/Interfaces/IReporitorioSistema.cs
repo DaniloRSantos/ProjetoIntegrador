@@ -11,5 +11,8 @@ namespace Projeto_Integrador.Repository.Interfaces
     {
         TREINAMENTO ProcurarProximoTreinamento(long cpf);
         EXERCICIO ProcurarExercicioPorCodigo(decimal codigo);
+        FICHA VerificarExistenciaFicha(long? CPF);
+        IEnumerable<FICHA> ContagemFicha();
+
     }
 }

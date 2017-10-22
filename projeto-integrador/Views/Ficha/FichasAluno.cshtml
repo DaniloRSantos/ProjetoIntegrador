@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Projeto_Integrador.Models.Database.FICHA>
+@{
+    ViewBag.Title = "FichasAluno";
+    Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
+}
+
+<h2>Fichas Aluno</h2>
+
+@if(Model == null)
+{
+    <H1>Não há fichas para este aluno</H1>
+}
+else
+{
+    foreach (var ficha in Model)
+    {
+        @*@Html.DisplayFor(modelItem => ficha.)*@
+    }
+}
