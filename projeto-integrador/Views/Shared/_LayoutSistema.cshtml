@@ -1,20 +1,17 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0088cc">
     <meta charset="utf-8" />
-
     <!-- Importação de CSS -->
     <link rel="stylesheet" href="~/Contents/CSS/grid.min.css" />
     <link rel="stylesheet" href="~/Contents/Font Awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="~/Contents/CSS/main-style.min.css" />
-
+    <link rel="stylesheet" href="~/Contents/CSS/main-style.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
     <title>@ViewBag.Title</title>
 </head>
 <body style="background-color:rgba(203, 203, 210, 0.15);">
-
     <div class="navbar">
         <div class="menu-lateral">
             <div class="logotipo">
@@ -79,11 +76,9 @@
             </div>
         </div>
     </div>
-
     <div class="conteudo">
         @RenderBody()
     </div>
-
     <!-- Importação de Scripts -->
     <script src="~/Contents/JS/jquery-3.2.1.min.js"></script>
 </body>
