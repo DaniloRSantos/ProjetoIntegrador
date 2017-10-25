@@ -86,7 +86,7 @@ namespace Projeto_Integrador.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EMA_PESSOA,SEN_PESSOA,NOM_PESSOA,SNO_PESSOA,DCA_PESSOA,CPF_PESSOA,RG_PESSOA,DNA_PESSOA,SEX_PESSOA,PAI_PESSOA,CID_PESSOA,BAI_PESSOA,END_PESSOA,NEN_PESSOA,CEP_PESSOA,TEL_PESSOA,TEM_PESSOA")] PESSOA pESSOA)
+        public ActionResult Edit([Bind(Include = "CPF_PESSOA,NOM_PESSOA,SNO_PESSOA,DNA_PESSOA,DCA_PESSOA,SEX_PESSOA,PAI_PESSOA,CID_PESSOA,BAI_PESSOA,END_PESSOA,NEN_PESSOA,CEP_PESSOA,TEL_PESSOA,TEM_PESSOA,RG_PESSOA,SEN_PESSOA,EMA_PESSOA,FPE_PESSOA")] PESSOA pESSOA)
         {
             if (ModelState.IsValid)
             {

@@ -8,58 +8,64 @@
 <h2>Cadastros</h2>
 
 <p>
-    @Html.ActionLink("Adicionar", "Create")
+    @Html.ActionLink("Adicionar", "Create", null, new { @class = "btn btn-success" })
+
 </p>
 <table class="table">
-    <tr>
-        <th>
-            <h3>Nome</h3>
-        </th>
-        <th>
-            <h3>Data Cadastro</h3>
-        </th>
-        <th>
-            <h3>Endereço</h3>
-        </th>
-        <th>
-            <h3>Bairro</h3>
-        </th>
-        <th>
-            <h3>Telefone</h3>
-        </th>
-        <th>
-            <h3>E-mail</h3>
-        </th>
-        <th></th>
-    </tr>
+    <thead>
+        <tr>
+            <th>
+                <h3>Nome</h3>
+            </th>
+            <th>
+                <h3>Data Cadastro</h3>
+            </th>
+            <th>
+                <h3>Endereço</h3>
+            </th>
+            <th>
+                <h3>Bairro</h3>
+            </th>
+            <th>
+                <h3>Telefone</h3>
+            </th>
+            <th>
+                <h3>E-mail</h3>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOM_PESSOA) @Html.DisplayFor(modelItem => item.SNO_PESSOA)
+                </td>
+                <td>
+                    @item.DCA_PESSOA.ToShortDateString()
+                    @*@Html.DisplayFor(modelItem => item.DCA_PESSOA,"{0:dd/MM/yyyy}")*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.END_PESSOA) @Html.DisplayFor(modelItem => item.NEN_PESSOA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BAI_PESSOA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TEL_PESSOA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMA_PESSOA)
+                </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NOM_PESSOA) @Html.DisplayFor(modelItem => item.SNO_PESSOA)
-        </td>
-        <td>
-            @item.DCA_PESSOA.ToShortDateString()
-            @*@Html.DisplayFor(modelItem => item.DCA_PESSOA,"{0:dd/MM/yyyy}")*@
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.END_PESSOA) @Html.DisplayFor(modelItem => item.NEN_PESSOA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BAI_PESSOA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TEL_PESSOA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EMA_PESSOA)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.CPF_PESSOA }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.CPF_PESSOA }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.CPF_PESSOA })
-        </td>
-    </tr>
-}
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.CPF_PESSOA, @class = "btn-primary" }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.CPF_PESSOA, @class = "btn-success" }) |
+                    @Html.ActionLink("Excluir", "Delete", new { id = item.CPF_PESSOA, @class = "btn-danger" })
+                </td>
 
+            </tr>
+        }
+    </tbody>
 </table>
