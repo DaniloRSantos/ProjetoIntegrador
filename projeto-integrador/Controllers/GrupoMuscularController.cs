@@ -10,112 +10,107 @@ using Projeto_Integrador.Models.Database;
 
 namespace Projeto_Integrador.Controllers
 {
-    public class ExerciciosController : Controller
+    public class GrupoMuscularController : Controller
     {
         private Entities db = new Entities();
 
-        // GET: EXERCICIOs
+        // GET: GRUPO_MUSCULAR
         public ActionResult Index()
         {
-            var eXERCICIO = db.EXERCICIO.Include(e => e.GRUPO_MUSCULAR);
-            return View(eXERCICIO.ToList());
+            return View(db.GRUPO_MUSCULAR.ToList());
         }
 
-        // GET: EXERCICIOs/Details/5
+        // GET: GRUPO_MUSCULAR/Details/5
         public ActionResult Details(short? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EXERCICIO eXERCICIO = db.EXERCICIO.Find(id);
-            if (eXERCICIO == null)
+            GRUPO_MUSCULAR gRUPO_MUSCULAR = db.GRUPO_MUSCULAR.Find(id);
+            if (gRUPO_MUSCULAR == null)
             {
                 return HttpNotFound();
             }
-            return View(eXERCICIO);
+            return View(gRUPO_MUSCULAR);
         }
 
-        // GET: EXERCICIOs/Create
+        // GET: GRUPO_MUSCULAR/Create
         public ActionResult Create()
         {
-            ViewBag.COD_GRUMUSC = new SelectList(db.GRUPO_MUSCULAR, "COD_GRUPOMUSCULAR", "NOM_GRUPOMUSCULAR");
             return View();
         }
 
-        // POST: EXERCICIOs/Create
+        // POST: GRUPO_MUSCULAR/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COD_EXERCICIO,COD_GRUMUSC,NOM_EXERCICIO,SIG_EXERCICIO,STA_EXERCICIO,TIP_EXERCICIO")] EXERCICIO eXERCICIO)
+        public ActionResult Create([Bind(Include = "COD_GRUPOMUSCULAR,NOM_GRUPOMUSCULAR")] GRUPO_MUSCULAR gRUPO_MUSCULAR)
         {
             if (ModelState.IsValid)
             {
-                db.EXERCICIO.Add(eXERCICIO);
+                db.GRUPO_MUSCULAR.Add(gRUPO_MUSCULAR);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.COD_GRUMUSC = new SelectList(db.GRUPO_MUSCULAR, "COD_GRUPOMUSCULAR", "NOM_GRUPOMUSCULAR", eXERCICIO.COD_GRUMUSC);
-            return View(eXERCICIO);
+            return View(gRUPO_MUSCULAR);
         }
 
-        // GET: EXERCICIOs/Edit/5
+        // GET: GRUPO_MUSCULAR/Edit/5
         public ActionResult Edit(short? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EXERCICIO eXERCICIO = db.EXERCICIO.Find(id);
-            if (eXERCICIO == null)
+            GRUPO_MUSCULAR gRUPO_MUSCULAR = db.GRUPO_MUSCULAR.Find(id);
+            if (gRUPO_MUSCULAR == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.COD_GRUMUSC = new SelectList(db.GRUPO_MUSCULAR, "COD_GRUPOMUSCULAR", "NOM_GRUPOMUSCULAR", eXERCICIO.COD_GRUMUSC);
-            return View(eXERCICIO);
+            return View(gRUPO_MUSCULAR);
         }
 
-        // POST: EXERCICIOs/Edit/5
+        // POST: GRUPO_MUSCULAR/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "COD_EXERCICIO,COD_GRUMUSC,NOM_EXERCICIO,SIG_EXERCICIO,STA_EXERCICIO,TIP_EXERCICIO")] EXERCICIO eXERCICIO)
+        public ActionResult Edit([Bind(Include = "COD_GRUPOMUSCULAR,NOM_GRUPOMUSCULAR")] GRUPO_MUSCULAR gRUPO_MUSCULAR)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(eXERCICIO).State = EntityState.Modified;
+                db.Entry(gRUPO_MUSCULAR).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.COD_GRUMUSC = new SelectList(db.GRUPO_MUSCULAR, "COD_GRUPOMUSCULAR", "NOM_GRUPOMUSCULAR", eXERCICIO.COD_GRUMUSC);
-            return View(eXERCICIO);
+            return View(gRUPO_MUSCULAR);
         }
 
-        // GET: EXERCICIOs/Delete/5
+        // GET: GRUPO_MUSCULAR/Delete/5
         public ActionResult Delete(short? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EXERCICIO eXERCICIO = db.EXERCICIO.Find(id);
-            if (eXERCICIO == null)
+            GRUPO_MUSCULAR gRUPO_MUSCULAR = db.GRUPO_MUSCULAR.Find(id);
+            if (gRUPO_MUSCULAR == null)
             {
                 return HttpNotFound();
             }
-            return View(eXERCICIO);
+            return View(gRUPO_MUSCULAR);
         }
 
-        // POST: EXERCICIOs/Delete/5
+        // POST: GRUPO_MUSCULAR/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(short id)
         {
-            EXERCICIO eXERCICIO = db.EXERCICIO.Find(id);
-            db.EXERCICIO.Remove(eXERCICIO);
+            GRUPO_MUSCULAR gRUPO_MUSCULAR = db.GRUPO_MUSCULAR.Find(id);
+            db.GRUPO_MUSCULAR.Remove(gRUPO_MUSCULAR);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

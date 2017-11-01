@@ -1,0 +1,27 @@
+﻿@model Projeto_Integrador.Models.Database.GRUPO_MUSCULAR
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>GRUPO_MUSCULAR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NOM_GRUPOMUSCULAR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOM_GRUPOMUSCULAR)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_GRUPOMUSCULAR }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

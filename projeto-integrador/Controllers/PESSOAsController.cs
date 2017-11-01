@@ -10,7 +10,7 @@ using Projeto_Integrador.Models.Database;
 
 namespace Projeto_Integrador.Controllers
 {
-    public class PESSOAsController : Controller
+    public class PessoasController : Controller
     {
         private Entities db = new Entities();
 

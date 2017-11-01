@@ -193,9 +193,10 @@
     <Compile Include="Attributes\AuthenticationAttribute.cs" />
     <Compile Include="Controllers\AdmController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
-    <Compile Include="Controllers\EXERCICIOsController.cs" />
+    <Compile Include="Controllers\ExerciciosController.cs" />
     <Compile Include="Controllers\FichaController.cs" />
-    <Compile Include="Controllers\PESSOAsController.cs" />
+    <Compile Include="Controllers\GrupoMuscularController.cs" />
+    <Compile Include="Controllers\PessoasController.cs" />
     <Compile Include="Controllers\SistemaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -252,6 +253,7 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\Exercicios.cs" />
+    <Compile Include="Models\ViewModels\GrupoMuscular.cs" />
     <Compile Include="Models\ViewModels\LoginModel.cs" />
     <Compile Include="Models\ViewModels\Pessoas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -288,11 +290,11 @@
     <Content Include="Source\CSS\entrar.styl" />
     <Content Include="Views\Sistema\Inicio.cshtml" />
     <Content Include="Views\Sistema\Sobre.cshtml" />
-    <Content Include="Views\PESSOAs\Create.cshtml" />
-    <Content Include="Views\PESSOAs\Delete.cshtml" />
-    <Content Include="Views\PESSOAs\Details.cshtml" />
-    <Content Include="Views\PESSOAs\Edit.cshtml" />
-    <Content Include="Views\PESSOAs\Index.cshtml" />
+    <Content Include="Views\Pessoas\Create.cshtml" />
+    <Content Include="Views\Pessoas\Delete.cshtml" />
+    <Content Include="Views\Pessoas\Details.cshtml" />
+    <Content Include="Views\Pessoas\Edit.cshtml" />
+    <Content Include="Views\Pessoas\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutSistemaAdm.cshtml" />
     <Content Include="Views\Adm\Index.cshtml" />
     <Content Include="Views\Adm\Sobre.cshtml" />
@@ -300,11 +302,16 @@
     <Content Include="Views\Ficha\CadastrarFicha.cshtml" />
     <Content Include="Views\Ficha\FichasAluno.cshtml" />
     <Content Include="Views\Ficha\CadastroFichaAluno.cshtml" />
-    <Content Include="Views\EXERCICIOs\Create.cshtml" />
-    <Content Include="Views\EXERCICIOs\Delete.cshtml" />
-    <Content Include="Views\EXERCICIOs\Details.cshtml" />
-    <Content Include="Views\EXERCICIOs\Edit.cshtml" />
-    <Content Include="Views\EXERCICIOs\Index.cshtml" />
+    <Content Include="Views\Exercicios\Create.cshtml" />
+    <Content Include="Views\Exercicios\Delete.cshtml" />
+    <Content Include="Views\Exercicios\Details.cshtml" />
+    <Content Include="Views\Exercicios\Edit.cshtml" />
+    <Content Include="Views\Exercicios\Index.cshtml" />
+    <Content Include="Views\GrupoMuscular\Create.cshtml" />
+    <Content Include="Views\GrupoMuscular\Delete.cshtml" />
+    <Content Include="Views\GrupoMuscular\Details.cshtml" />
+    <Content Include="Views\GrupoMuscular\Edit.cshtml" />
+    <Content Include="Views\GrupoMuscular\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
