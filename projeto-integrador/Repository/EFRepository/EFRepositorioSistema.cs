@@ -23,7 +23,7 @@ namespace Projeto_Integrador.Repository.EFRepository
 
         public TREINAMENTO ProcurarProximoTreinamento(long cpf)
         {
-            return context.TREINAMENTO.Where(x => x.CPF_ALUNO == cpf).First();
+            return context.TREINAMENTO.Where(x => x.CPF_ALUNO == cpf).FirstOrDefault();
         }
 
         public FICHA VerificarExistenciaFicha(long? CPF)

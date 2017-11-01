@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Projeto_Integrador.Models.Database.EXERCICIO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NOM_EXERCICIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SIG_EXERCICIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STA_EXERCICIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIP_EXERCICIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GRUPO_MUSCULAR.NOM_GRUPOMUSCULAR)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOM_EXERCICIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SIG_EXERCICIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STA_EXERCICIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIP_EXERCICIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GRUPO_MUSCULAR.NOM_GRUPOMUSCULAR)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.COD_EXERCICIO }) |
+            @Html.ActionLink("Details", "Details", new { id=item.COD_EXERCICIO }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.COD_EXERCICIO })
+        </td>
+    </tr>
+}
+
+</table>

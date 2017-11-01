@@ -193,6 +193,7 @@
     <Compile Include="Attributes\AuthenticationAttribute.cs" />
     <Compile Include="Controllers\AdmController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
+    <Compile Include="Controllers\EXERCICIOsController.cs" />
     <Compile Include="Controllers\FichaController.cs" />
     <Compile Include="Controllers\PESSOAsController.cs" />
     <Compile Include="Controllers\SistemaController.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Models\Database\TREINAMENTO.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\Exercicios.cs" />
     <Compile Include="Models\ViewModels\LoginModel.cs" />
     <Compile Include="Models\ViewModels\Pessoas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -298,6 +300,11 @@
     <Content Include="Views\Ficha\CadastrarFicha.cshtml" />
     <Content Include="Views\Ficha\FichasAluno.cshtml" />
     <Content Include="Views\Ficha\CadastroFichaAluno.cshtml" />
+    <Content Include="Views\EXERCICIOs\Create.cshtml" />
+    <Content Include="Views\EXERCICIOs\Delete.cshtml" />
+    <Content Include="Views\EXERCICIOs\Details.cshtml" />
+    <Content Include="Views\EXERCICIOs\Edit.cshtml" />
+    <Content Include="Views\EXERCICIOs\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

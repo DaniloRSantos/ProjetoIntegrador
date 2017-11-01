@@ -25,12 +25,12 @@ namespace Projeto_Integrador.Controllers
         {
             long CPF = (long)Session["CPF_Usuario"];
 
-            TREINAMENTO dadosTreinamento = repositorioSistema.ProcurarProximoTreinamento(CPF);
-            EXERCICIO dadosExercicio = repositorioSistema.ProcurarExercicioPorCodigo(dadosTreinamento.COD_EXERCICIO);
+            //TREINAMENTO dadosTreinamento = repositorioSistema.ProcurarProximoTreinamento(CPF);
+            //EXERCICIO dadosExercicio = repositorioSistema.ProcurarExercicioPorCodigo(dadosTreinamento.COD_EXERCICIO);
 
-            ViewBag.NomeExercicio = dadosExercicio.NOM_EXERCICIO;
-            ViewBag.RepeticoesExercicio = dadosTreinamento.REP_TREINAMENTO;
-            ViewBag.SeriesExercicio = dadosTreinamento.SER_TREINAMENTO;
+            //ViewBag.NomeExercicio = dadosExercicio.NOM_EXERCICIO;
+            //ViewBag.RepeticoesExercicio = dadosTreinamento.REP_TREINAMENTO;
+            //ViewBag.SeriesExercicio = dadosTreinamento.SER_TREINAMENTO;
 
             return View();
         }

@@ -1,0 +1,59 @@
+﻿@model Projeto_Integrador.Models.Database.EXERCICIO
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EXERCICIO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NOM_EXERCICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOM_EXERCICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SIG_EXERCICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SIG_EXERCICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STA_EXERCICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STA_EXERCICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIP_EXERCICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIP_EXERCICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GRUPO_MUSCULAR.NOM_GRUPOMUSCULAR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GRUPO_MUSCULAR.NOM_GRUPOMUSCULAR)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_EXERCICIO }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

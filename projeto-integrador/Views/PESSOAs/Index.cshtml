@@ -60,9 +60,9 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.CPF_PESSOA, @class = "btn-primary" }) |
-                    @Html.ActionLink("Detalhes", "Details", new { id = item.CPF_PESSOA, @class = "btn-success" }) |
-                    @Html.ActionLink("Excluir", "Delete", new { id = item.CPF_PESSOA, @class = "btn-danger" })
+                    @Html.ActionLink("Editar", "Edit", new { id = item.CPF_PESSOA }, new { @class = "btn btn-primary" }) 
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.CPF_PESSOA }, new { @class = "btn btn-success" }) 
+                    @Html.ActionLink("Excluir", "Delete", new { id = item.CPF_PESSOA }, new { @class = "btn btn-danger" })
                 </td>
 
             </tr>
