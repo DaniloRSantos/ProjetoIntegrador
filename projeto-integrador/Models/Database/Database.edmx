@@ -48,7 +48,7 @@
             <PropertyRef Name="COD_FICHA" />
           </Key>
           <Property Name="CPF_ALUNO" Type="number" Precision="11" Scale="0" Nullable="false" />
-          <Property Name="COD_FICHA" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="COD_FICHA" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="DTAINI_FICHA" Type="date" />
           <Property Name="DTAFIM_FICHA" Type="date" />
         </EntityType>
@@ -60,7 +60,6 @@
           <Property Name="CPF_ALUNO" Type="number" Precision="11" Scale="0" Nullable="false" />
           <Property Name="COD_FICHA" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="QTD_REPET_SIGLA" Type="number" Precision="2" Scale="0" Nullable="false" />
-          <Property Name="COD_SIGLA" Type="number" Precision="5" Scale="0" Nullable="false" />
           <Property Name="TIPO_SIGLA" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="STATUS_SIGLA" Type="char" MaxLength="1" />
         </EntityType>
@@ -795,7 +794,6 @@
           <Property Name="CPF_ALUNO" Type="Int64" Nullable="false" />
           <Property Name="COD_FICHA" Type="Int16" Nullable="false" />
           <Property Name="QTD_REPET_SIGLA" Type="Byte" Nullable="false" />
-          <Property Name="COD_SIGLA" Type="Int16" Nullable="false" />
           <Property Name="TIPO_SIGLA" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="STATUS_SIGLA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="ALUNO" Relationship="Model.FK_FICHA_SIGLA_ALUNO" FromRole="FICHA_SIGLA" ToRole="ALUNO" />
@@ -1006,7 +1004,6 @@
               <MappingFragment StoreEntitySet="FICHA_SIGLA">
                 <ScalarProperty Name="STATUS_SIGLA" ColumnName="STATUS_SIGLA" />
                 <ScalarProperty Name="TIPO_SIGLA" ColumnName="TIPO_SIGLA" />
-                <ScalarProperty Name="COD_SIGLA" ColumnName="COD_SIGLA" />
                 <ScalarProperty Name="QTD_REPET_SIGLA" ColumnName="QTD_REPET_SIGLA" />
                 <ScalarProperty Name="COD_FICHA" ColumnName="COD_FICHA" />
                 <ScalarProperty Name="CPF_ALUNO" ColumnName="CPF_ALUNO" />

@@ -44,7 +44,8 @@ namespace Projeto_Integrador.Controllers
 
         public ActionResult FichasAluno()
         {
-           return View();
+            var DadosTreinamento = db.FICHA_SIGLA;
+           return View(DadosTreinamento.ToList());
         }
 
         [HttpPost]
@@ -61,6 +62,24 @@ namespace Projeto_Integrador.Controllers
             dados.DTAINI_FICHA = DateTime.Now;
 
             db.FICHA.Add(dados);
+            db.SaveChanges();
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CadastroTipoTreino(long? Cpf, int? Qtd_repet, string TipoSigla)
+        {
+            var Ficha = db.FICHA_SIGLA;
+            FICHA_SIGLA dados = new FICHA_SIGLA();
+            long CPF_Convertido = (long)Cpf;
+            var CodFicha = db.FICHA.SqlQuery("SELECT COD_FICHA FROM FICHA WHERE DTAFIM_FICHA IS NULL");
+
+            dados.CPF_ALUNO = CPF_Convertido;
+            //dados.COD_FICHA = (short)CodFicha;
+            dados.QTD_REPET_SIGLA = (byte)Qtd_repet;
+            dados.TIPO_SIGLA = TipoSigla;
+            db.FICHA_SIGLA.Add(dados);
             db.SaveChanges();
 
             return Json(true, JsonRequestBehavior.AllowGet);

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Projeto_Integrador.Models.Database.FICHA>
+﻿@model IEnumerable<Projeto_Integrador.Models.Database.FICHA_SIGLA>
 @{
     ViewBag.Title = "FichasAluno";
     Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
@@ -14,6 +14,8 @@ else
 {
     foreach (var ficha in Model)
     {
-        @*@Html.DisplayFor(modelItem => ficha.)*@
+        @Html.DisplayFor(modelItem => ficha.COD_FICHA);
+
+
     }
 }

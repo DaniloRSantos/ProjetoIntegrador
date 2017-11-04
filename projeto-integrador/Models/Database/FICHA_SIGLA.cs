@@ -24,8 +24,6 @@ public partial class FICHA_SIGLA
 
     public byte QTD_REPET_SIGLA { get; set; }
 
-    public short COD_SIGLA { get; set; }
-
     public string TIPO_SIGLA { get; set; }
 
     public string STATUS_SIGLA { get; set; }
