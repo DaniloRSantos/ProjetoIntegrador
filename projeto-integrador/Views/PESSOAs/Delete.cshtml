@@ -1,105 +1,141 @@
 ﻿@model Projeto_Integrador.Models.Database.PESSOA
-
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
 }
-
-<h2>Excluir</h2>
-
-<h3>Você tem certeza que deseja excluir o cadastro?</h3>
+<h1 style="color:red"> Atenção!</h1>
+<h4>Você tem certeza que deseja excluir o cadastro @Html.DisplayFor(model => model.NOM_PESSOA)?</h4>
 <div>
-    <h4>PESSOA</h4>
+    <p>
+
+    </p>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.LabelFor(model => model.FPE_PESSOA,"Foto")
-        </dt>
+    <fieldset disabled>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.LabelFor(model => model.FPE_PESSOA, "Foto")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FPE_PESSOA)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.FPE_PESSOA)
+            </dd>
+        </dl>
 
-        <dt>
-            @Html.LabelFor(model => model.NOM_PESSOA,"Nome")
-        </dt>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Nome</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.NOM_PESSOA) @Html.DisplayFor(model => model.SNO_PESSOA)">
+            </div>
+        </fieldset>
 
-        <dd>
-            @Html.DisplayFor(model => model.NOM_PESSOA) @Html.DisplayFor(model => model.SNO_PESSOA)
-        </dd>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Data Nascimento</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Model.DNA_PESSOA.ToShortDateString()">
+            </div>
+        </fieldset>
 
-        <dt>
-            @Html.LabelFor(model => model.RG_PESSOA,"RG")
-        </dt>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Data Cadastro</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Model.DCA_PESSOA.ToShortDateString()">
+            </div>
+        </fieldset>
 
-        <dd>
-            @Html.DisplayFor(model => model.RG_PESSOA)
-        </dd>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Sexo</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.SEX_PESSOA)">
+            </div>
+        </fieldset>
 
-        <dt>
-            @Html.LabelFor(model => model.ALUNO.CPF_ALUNO, "CPF")
-        </dt>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">País</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.PAI_PESSOA)">
+            </div>
+        </fieldset>
 
-        <dd>
-            @Html.DisplayFor(model => model.ALUNO.CPF_ALUNO)
-        </dd>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Cidade</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.CID_PESSOA)">
+            </div>
+        </fieldset>
 
-        <dt>
-            @Html.LabelFor(model => model.TEL_PESSOA,"Telefone")
-        </dt>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Bairro</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.BAI_PESSOA)">
+            </div>
+        </fieldset>
 
-        <dd>
-            @Html.DisplayFor(model => model.TEL_PESSOA)
-        </dd>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Número</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.NEN_PESSOA)">
+            </div>
+        </fieldset>
 
-         <dt>
-            @Html.LabelFor(model => model.EMA_PESSOA,"Email")
-        </dt>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">CEP</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.CEP_PESSOA)">
+            </div>
+        </fieldset>
 
-        <dd>
-            @Html.DisplayFor(model => model.EMA_PESSOA)
-        </dd>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Telefone</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.TEL_PESSOA)">
+            </div>
+        </fieldset>
 
-        <dt>
-            @Html.LabelFor(model => model.PAI_PESSOA, "País")
-        </dt>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Telefone Emergência</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.TEM_PESSOA)">
+            </div>
+        </fieldset>
 
-        <dd>
-            @Html.DisplayFor(model => model.PAI_PESSOA)
-        </dd>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">RG</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.RG_PESSOA)">
+            </div>
+        </fieldset>
 
-        <dt>
-            @Html.LabelFor(model => model.CID_PESSOA, "Cidade")
-        </dt>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">E-mail</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.EMA_PESSOA)">
+            </div>
+        </fieldset>
 
-        <dd>
-            @Html.DisplayFor(model => model.CID_PESSOA)
-        </dd>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">CPF</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.ALUNO.CPF_ALUNO)">
+            </div>
+        </fieldset>
 
-        <dt>
-            @Html.LabelFor(model => model.BAI_PESSOA, "Bairro")
-        </dt>
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">CTP</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder=" @Html.DisplayFor(model => model.FUNCIONARIO.CTP_PESSOA) ">
+            </div>
+        </fieldset>
 
-        <dd>
-            @Html.DisplayFor(model => model.BAI_PESSOA)
-        </dd>
+    </fieldset>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.LabelFor(model => model.END_PESSOA, "Endereço")
-        </dt>
+    <div class="form-actions no-color">
+        @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary col-md-offset-0" })
+        <input type="submit" value="Excluir" class="btn btn-danger" />
 
-        <dd>
-            @Html.DisplayFor(model => model.END_PESSOA)@Html.DisplayFor(model => model.NEN_PESSOA)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Excluir" class="btn btn-default" /> |
-            @Html.ActionLink("Voltar a lista", "Index")
-        </div>
-    }
+    </div>
+}
 </div>

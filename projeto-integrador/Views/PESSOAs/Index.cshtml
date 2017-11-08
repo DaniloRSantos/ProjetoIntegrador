@@ -1,15 +1,12 @@
-﻿@model IEnumerable<Projeto_Integrador.Models.Database.PESSOA>
-
+﻿
+@model IEnumerable<Projeto_Integrador.Models.Database.PESSOA>
 @{
     ViewBag.Title = "Cadastros";
     Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
 }
-
-<h2>Cadastros</h2>
-
+<h2>Alunos Cadastrados</h2>
 <p>
     @Html.ActionLink("Adicionar", "Create", null, new { @class = "btn btn-success" })
-
 </p>
 <table class="table">
     <thead>
@@ -58,13 +55,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EMA_PESSOA)
                 </td>
-
                 <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.CPF_PESSOA }, new { @class = "btn btn-primary" }) 
-                    @Html.ActionLink("Detalhes", "Details", new { id = item.CPF_PESSOA }, new { @class = "btn btn-success" }) 
+                    @Html.ActionLink("Editar", "Edit", new { id = item.CPF_PESSOA }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.CPF_PESSOA }, new { @class = "btn btn-success" })
                     @Html.ActionLink("Excluir", "Delete", new { id = item.CPF_PESSOA }, new { @class = "btn btn-danger" })
                 </td>
-
             </tr>
         }
     </tbody>

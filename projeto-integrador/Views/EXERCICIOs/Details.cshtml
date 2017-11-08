@@ -1,59 +1,97 @@
 ﻿@model Projeto_Integrador.Models.Database.EXERCICIO
-
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
 }
-
-<h2>Details</h2>
-
+@{ <h4>Detalhes @Html.DisplayFor(model => model.NOM_EXERCICIO)</h4>
+}
 <div>
-    <h4>EXERCICIO</h4>
+    <h4></h4>
     <hr />
+
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NOM_EXERCICIO)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NOM_EXERCICIO)
-        </dd>
+        @* <dt>
+                    @Html.DisplayNameFor(model => model.NOM_EXERCICIO)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SIG_EXERCICIO)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NOM_EXERCICIO)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.SIG_EXERCICIO)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SIG_EXERCICIO)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.STA_EXERCICIO)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SIG_EXERCICIO)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.STA_EXERCICIO)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.STA_EXERCICIO)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TIP_EXERCICIO)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.STA_EXERCICIO)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TIP_EXERCICIO)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TIP_EXERCICIO)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.GRUPO_MUSCULAR.NOM_GRUPOMUSCULAR)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TIP_EXERCICIO)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.GRUPO_MUSCULAR.NOM_GRUPOMUSCULAR)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.GRUPO_MUSCULAR.NOM_GRUPOMUSCULAR)
+                </dt>
 
+                <dd>
+
+                </dd>
+
+            </dl>*@
+
+
+
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Nome Exercício</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.NOM_EXERCICIO)">
+            </div>
+        </fieldset>
+
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Sigla Exercício</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.SIG_EXERCICIO)">
+            </div>
+        </fieldset>
+
+        @*<fieldset class="dropdown">
+                <div class="form-group col-md-4">
+                    <label for="disabledTextInput">Status</label>
+                    <input type="button" id="dropdownMenu1" class="form-control" placeholder="@Html.DisplayFor(model => model.STA_EXERCICIO)">
+                </div>
+            </fieldset>*@
+
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Tipo de Exercício</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.TIP_EXERCICIO)">
+            </div>
+        </fieldset>
+
+        <fieldset disabled>
+            <div class="form-group col-md-4">
+                <label for="disabledTextInput">Grupo Muscular</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.GRUPO_MUSCULAR.NOM_GRUPOMUSCULAR)">
+            </div>
+        </fieldset>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_EXERCICIO }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary col-md-offset-0" })
+    @Html.ActionLink("Editar", "Edit", new { id = Model.COD_EXERCICIO }, new { @class = "btn btn-success col-md-offset-2" })
 </p>
