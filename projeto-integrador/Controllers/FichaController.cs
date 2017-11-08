@@ -1,4 +1,5 @@
-﻿using Projeto_Integrador.Models.Database;
+﻿using Projeto_Integrador.Attributes;
+using Projeto_Integrador.Models.Database;
 using Projeto_Integrador.Repository.EFRepository;
 using Projeto_Integrador.Repository.Interfaces;
 using System;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Projeto_Integrador.Controllers
 {
-
+    [Authentication]
     public class FichaController : Controller
     {
         private Entities db = new Entities();
