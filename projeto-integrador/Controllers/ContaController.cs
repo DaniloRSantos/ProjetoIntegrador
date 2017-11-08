@@ -1,4 +1,5 @@
-﻿using Projeto_Integrador.Models.Database;
+﻿using Projeto_Integrador.Attributes;
+using Projeto_Integrador.Models.Database;
 using Projeto_Integrador.Models.ViewModels;
 using Projeto_Integrador.Repository.EFRepository;
 using Projeto_Integrador.Repository.Interfaces;
