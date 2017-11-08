@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Projeto_Integrador.Controllers
 {
-
+    [Authentication]
     public class FichaController : Controller
     {
         private Entities db = new Entities();

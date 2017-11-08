@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Projeto_Integrador.Controllers
 {
+    [Authentication]
     public class ContaController : Controller
     {
         private IRepositorioConta repositorioConta;

@@ -10,6 +10,7 @@ using Projeto_Integrador.Models.Database;
 
 namespace Projeto_Integrador.Controllers
 {
+    [Authentication]
     public class ExerciciosController : Controller
     {
         private Entities db = new Entities();
