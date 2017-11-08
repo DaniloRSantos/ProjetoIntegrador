@@ -1,27 +1,29 @@
 ﻿@model Projeto_Integrador.Models.Database.GRUPO_MUSCULAR
-
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
 }
-
-<h2>Details</h2>
-
+<h2>Detalhes</h2>
 <div>
-    <h4>GRUPO_MUSCULAR</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NOM_GRUPOMUSCULAR)
-        </dt>
+    @* <dl class="dl-horizontal">
+           <dt>
+                @Html.DisplayNameFor(model => model.NOM_GRUPOMUSCULAR)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NOM_GRUPOMUSCULAR)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.NOM_GRUPOMUSCULAR)
+            </dd>
 
-    </dl>
+        </dl>*@
+    <fieldset disabled>
+        <div class="form-group col-md-4">
+            <label for="disabledTextInput">Nome Muscular</label>
+            <input type="text" id="disabledTextInput" class="form-control" placeholder="@Html.DisplayFor(model => model.NOM_GRUPOMUSCULAR)">
+        </div>
+    </fieldset>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_GRUPOMUSCULAR }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary col-md-offset-0" })
+    @Html.ActionLink("Editar", "Edit", new { id = Model.COD_GRUPOMUSCULAR }, new { @class = "btn btn-success col-md-offset-2" })
 </p>

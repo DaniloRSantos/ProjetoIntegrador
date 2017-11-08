@@ -1,19 +1,15 @@
 ﻿@model Projeto_Integrador.Models.Database.PESSOA
-
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutSistemaAdm.cshtml";
 }
-
 <h2>Cadatro Usuário</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-
         <hr />
     </div>
 
@@ -25,7 +21,6 @@
 
     @Html.LabelFor(model => model.SEN_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-5">
-
         @Html.EditorFor(model => model.SEN_PESSOA, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senha", @type = "password" } })
         @Html.ValidationMessageFor(model => model.SEN_PESSOA, "", new { @class = "text-danger" })
     </div>
@@ -36,35 +31,34 @@
         @Html.ValidationMessageFor(model => model.NOM_PESSOA, "", new { @class = "text-danger", })
     </div>
 
-            @Html.LabelFor(model => model.SNO_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.SNO_PESSOA, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sobrenome" } })
-                @Html.ValidationMessageFor(model => model.SNO_PESSOA, "", new { @class = "text-danger" })
-
-            </div>
+    @Html.LabelFor(model => model.SNO_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-4">
+        @Html.EditorFor(model => model.SNO_PESSOA, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sobrenome" } })
+        @Html.ValidationMessageFor(model => model.SNO_PESSOA, "", new { @class = "text-danger" })
+    </div>
 
             @Html.LabelFor(model => model.DCA_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.DCA_PESSOA, new { htmlAttributes = new { @class = "form-control", @placeholder = "Data de Cadastro" } })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.DCA_PESSOA, new { htmlAttributes = new { @class = "form-control", id = "dt", @placeholder = "Data de Cadastro", type = "date" } })
                 @Html.ValidationMessageFor(model => model.DCA_PESSOA, "", new { @class = "text-danger" })
+
             </div>
 
             @Html.LabelFor(model => model.CPF_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.CPF_PESSOA, new { htmlAttributes = new { @class = "form-control", @placeholder = "CPF" } })
+                @Html.EditorFor(model => model.CPF_PESSOA, new { htmlAttributes = new { @class = "form-control", id = "cpf", @placeholder = "CPF", type = "cep" } })
                 @Html.ValidationMessageFor(model => model.CPF_PESSOA, "", new { @class = "text-danger" })
-
             </div>
 
             @Html.LabelFor(model => model.RG_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.RG_PESSOA, new { htmlAttributes = new { @class = "form-control", @placeholder = "RG" } })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.RG_PESSOA, new { htmlAttributes = new { @class = "form-control", id = "rg", @placeholder = "RG", type = "rg" } })
                 @Html.ValidationMessageFor(model => model.RG_PESSOA, "", new { @class = "text-danger" })
             </div>
 
             @Html.LabelFor(model => model.DNA_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.DNA_PESSOA, new { htmlAttributes = new { @class = "form-control", @placeholder = "Data Nacimento" } })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.DNA_PESSOA, new { htmlAttributes = new { @class = "form-control", id = "da", @placeholder = "Data Nacimento", type = "date" } })
                 @Html.ValidationMessageFor(model => model.DNA_PESSOA, "", new { @class = "text-danger" })
             </div>
 
@@ -110,13 +104,13 @@
 
             @Html.LabelFor(model => model.NEN_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.NEN_PESSOA, new { htmlAttributes = new { @class = "form-control", @placeholder = "Numero" } })
+                @Html.EditorFor(model => model.NEN_PESSOA, "", new { htmlAttributes = new { @class = "form-control", @placeholder = "Numero" } })
                 @Html.ValidationMessageFor(model => model.NEN_PESSOA, "", new { @class = "text-danger" })
             </div>
 
             @Html.LabelFor(model => model.CEP_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.CEP_PESSOA, "", new { htmlAttributes = new { @class = "form-control", @placeholder = "CEP" } })
+                @Html.EditorFor(model => model.CEP_PESSOA, "", new { htmlAttributes = new { @class = "form-control", id = "cep", @placeholder = "CEP", type = "cep" } })
                 @Html.ValidationMessageFor(model => model.CEP_PESSOA, "", new { @class = "text-danger" })
             </div>
 
@@ -124,7 +118,7 @@
 
             @Html.LabelFor(model => model.TEL_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-3">
-                @Html.EditorFor(model => model.TEL_PESSOA, new { htmlAttributes = new { @class = "form-control", @placeholder = "Telefone" } })
+                @Html.EditorFor(model => model.TEL_PESSOA, new { htmlAttributes = new { @class = "form-control", id = "telefone", @placeholder = "telefone", type = "telefone" } })
                 @Html.ValidationMessageFor(model => model.TEL_PESSOA, "", new { @class = "text-danger" })
             </div>
 
@@ -132,21 +126,35 @@
 
             @Html.LabelFor(model => model.TEM_PESSOA, "", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-3">
-                @Html.EditorFor(model => model.TEM_PESSOA, new { htmlAttributes = new { @class = "form-control", @placeholder = "Telefone Emergência" } })
+
+                @Html.EditorFor(model => model.TEM_PESSOA, "", new { htmlAttributes = new { @class = "form-control", id = "tel", @placeholder = "Telefone Emergência", type = "telefone" } })
                 @Html.ValidationMessageFor(model => model.TEM_PESSOA, "", new { @class = "text-danger" })
             </div>
 
-            <div class="col-sm-offset-11 col-md-1">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group">
+                <div class="col-md-offset-0 col-md-12">
+                    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-success" })
+                    <input type="submit" value="Adicionar" class="btn btn-primary col-lg-offset-10">
+                </div>
             </div>
 
-
 }
+<script>
+             $(document).ready(function () {
 
-<div>
-    <p>@Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-success" })</p>
-</div>
+            $("#telefone").mask("(99) 99999-9999");
+            $("#tel").mask("(99) 99999-9999");
+            $("#cpf").mask("999.999.999-99", {reverse:true});
+            $("#cep").mask("99999-999");
+            $("#dat").mask("99/99/9999");
+            $("#datq").mask("99/99/9999");
+            $("#rg").mask("99.999.999-9");
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    });
+</script>
+
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="/scripts/inputmask/jquery.inputmask.js"></script>
+
+
