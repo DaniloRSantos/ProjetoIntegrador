@@ -45,10 +45,11 @@
         </EntityType>
         <EntityType Name="FICHA">
           <Key>
+            <PropertyRef Name="CPF_ALUNO" />
             <PropertyRef Name="COD_FICHA" />
           </Key>
           <Property Name="CPF_ALUNO" Type="number" Precision="11" Scale="0" Nullable="false" />
-          <Property Name="COD_FICHA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="COD_FICHA" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="DTAINI_FICHA" Type="date" />
           <Property Name="DTAFIM_FICHA" Type="date" />
         </EntityType>
@@ -56,9 +57,11 @@
           <Key>
             <PropertyRef Name="CPF_ALUNO" />
             <PropertyRef Name="COD_FICHA" />
+            <PropertyRef Name="COD_FICHA_SIGLA" />
           </Key>
           <Property Name="CPF_ALUNO" Type="number" Precision="11" Scale="0" Nullable="false" />
           <Property Name="COD_FICHA" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="COD_FICHA_SIGLA" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="QTD_REPET_SIGLA" Type="number" Precision="2" Scale="0" Nullable="false" />
           <Property Name="TIPO_SIGLA" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="STATUS_SIGLA" Type="char" MaxLength="1" />
@@ -215,18 +218,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CPF_ALUNO_TREINAMENTO">
-          <End Role="ALUNO" Type="Self.ALUNO" Multiplicity="1" />
-          <End Role="TREINAMENTO" Type="Self.TREINAMENTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ALUNO">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Principal>
-            <Dependent Role="TREINAMENTO">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CPF_FUNCIONARIO">
           <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
           <End Role="ALUNO" Type="Self.ALUNO" Multiplicity="*" />
@@ -287,27 +278,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FICHA_SIGLA_ALUNO">
-          <End Role="ALUNO" Type="Self.ALUNO" Multiplicity="1" />
-          <End Role="FICHA_SIGLA" Type="Self.FICHA_SIGLA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ALUNO">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Principal>
-            <Dependent Role="FICHA_SIGLA">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FICHA_SIGLA_FICHA">
           <End Role="FICHA" Type="Self.FICHA" Multiplicity="1" />
           <End Role="FICHA_SIGLA" Type="Self.FICHA_SIGLA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FICHA">
               <PropertyRef Name="COD_FICHA" />
+              <PropertyRef Name="CPF_ALUNO" />
             </Principal>
             <Dependent Role="FICHA_SIGLA">
               <PropertyRef Name="COD_FICHA" />
+              <PropertyRef Name="CPF_ALUNO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -329,9 +310,11 @@
           <ReferentialConstraint>
             <Principal Role="FICHA">
               <PropertyRef Name="COD_FICHA" />
+              <PropertyRef Name="CPF_ALUNO" />
             </Principal>
             <Dependent Role="TREINAMENTO">
               <PropertyRef Name="COD_FICHA" />
+              <PropertyRef Name="CPF_ALUNO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -368,10 +351,6 @@
             <End Role="ALUNO" EntitySet="ALUNO" />
             <End Role="ALUNO_OBJETIVO" EntitySet="ALUNO_OBJETIVO" />
           </AssociationSet>
-          <AssociationSet Name="FK_CPF_ALUNO_TREINAMENTO" Association="Self.FK_CPF_ALUNO_TREINAMENTO">
-            <End Role="ALUNO" EntitySet="ALUNO" />
-            <End Role="TREINAMENTO" EntitySet="TREINAMENTO" />
-          </AssociationSet>
           <AssociationSet Name="FK_CPF_FUNCIONARIO" Association="Self.FK_CPF_FUNCIONARIO">
             <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
             <End Role="ALUNO" EntitySet="ALUNO" />
@@ -392,10 +371,6 @@
             <End Role="ALUNO" EntitySet="ALUNO" />
             <End Role="FICHA" EntitySet="FICHA" />
           </AssociationSet>
-          <AssociationSet Name="FK_FICHA_SIGLA_ALUNO" Association="Self.FK_FICHA_SIGLA_ALUNO">
-            <End Role="ALUNO" EntitySet="ALUNO" />
-            <End Role="FICHA_SIGLA" EntitySet="FICHA_SIGLA" />
-          </AssociationSet>
           <AssociationSet Name="FK_FICHA_SIGLA_FICHA" Association="Self.FK_FICHA_SIGLA_FICHA">
             <End Role="FICHA" EntitySet="FICHA" />
             <End Role="FICHA_SIGLA" EntitySet="FICHA_SIGLA" />
@@ -413,6 +388,72 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ALUNO" EntityType="Model.ALUNO" />
+          <EntitySet Name="ALUNO_OBJETIVO" EntityType="Model.ALUNO_OBJETIVO" />
+          <EntitySet Name="CADASTRO_OBJETIVO" EntityType="Model.CADASTRO_OBJETIVO" />
+          <EntitySet Name="EXERCICIO" EntityType="Model.EXERCICIO" />
+          <EntitySet Name="FICHA" EntityType="Model.FICHA" />
+          <EntitySet Name="FICHA_SIGLA" EntityType="Model.FICHA_SIGLA" />
+          <EntitySet Name="FUNCAO" EntityType="Model.FUNCAO" />
+          <EntitySet Name="FUNCIONARIO" EntityType="Model.FUNCIONARIO" />
+          <EntitySet Name="GRUPO_MUSCULAR" EntityType="Model.GRUPO_MUSCULAR" />
+          <EntitySet Name="MEDICAO" EntityType="Model.MEDICAO" />
+          <EntitySet Name="PESSOA" EntityType="Model.PESSOA" />
+          <EntitySet Name="TREINAMENTO" EntityType="Model.TREINAMENTO" />
+          <AssociationSet Name="FK_CPF_ALUNO" Association="Model.FK_CPF_ALUNO">
+            <End Role="PESSOA" EntitySet="PESSOA" />
+            <End Role="ALUNO" EntitySet="ALUNO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPF_ALUNO_AOBJETIVO" Association="Model.FK_CPF_ALUNO_AOBJETIVO">
+            <End Role="ALUNO" EntitySet="ALUNO" />
+            <End Role="ALUNO_OBJETIVO" EntitySet="ALUNO_OBJETIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPF_FUNCIONARIO" Association="Model.FK_CPF_FUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="ALUNO" EntitySet="ALUNO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPF_MEDICAO" Association="Model.FK_CPF_MEDICAO">
+            <End Role="ALUNO" EntitySet="ALUNO" />
+            <End Role="MEDICAO" EntitySet="MEDICAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FICHA" Association="Model.FK_FICHA">
+            <End Role="ALUNO" EntitySet="ALUNO" />
+            <End Role="FICHA" EntitySet="FICHA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COD_OBJETIVO" Association="Model.FK_COD_OBJETIVO">
+            <End Role="CADASTRO_OBJETIVO" EntitySet="CADASTRO_OBJETIVO" />
+            <End Role="ALUNO_OBJETIVO" EntitySet="ALUNO_OBJETIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COD_EXERCICIO" Association="Model.FK_COD_EXERCICIO">
+            <End Role="EXERCICIO" EntitySet="EXERCICIO" />
+            <End Role="TREINAMENTO" EntitySet="TREINAMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COD_GRUPO_MUSCULAR" Association="Model.FK_COD_GRUPO_MUSCULAR">
+            <End Role="GRUPO_MUSCULAR" EntitySet="GRUPO_MUSCULAR" />
+            <End Role="EXERCICIO" EntitySet="EXERCICIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FICHA_SIGLA_FICHA" Association="Model.FK_FICHA_SIGLA_FICHA">
+            <End Role="FICHA" EntitySet="FICHA" />
+            <End Role="FICHA_SIGLA" EntitySet="FICHA_SIGLA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TREINAMENTO_FICHA_SIGLA" Association="Model.FK_TREINAMENTO_FICHA_SIGLA">
+            <End Role="FICHA" EntitySet="FICHA" />
+            <End Role="TREINAMENTO" EntitySet="TREINAMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FUNCIONARIO_FUNCAO" Association="Model.FK_FUNCIONARIO_FUNCAO">
+            <End Role="FUNCAO" EntitySet="FUNCAO" />
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPF_FUNCIONARIO_MEDICAO" Association="Model.FK_CPF_FUNCIONARIO_MEDICAO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="MEDICAO" EntitySet="MEDICAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPF_PESSOA" Association="Model.FK_CPF_PESSOA">
+            <End Role="PESSOA" EntitySet="PESSOA" />
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="ALUNO">
           <Key>
             <PropertyRef Name="CPF_ALUNO" />
@@ -420,13 +461,11 @@
           <Property Name="CPF_ALUNO" Type="Int64" Nullable="false" />
           <Property Name="CPF_FUNCIONARIO" Type="Int64" Nullable="false" />
           <Property Name="STA_ALUNO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PESSOA" Relationship="Self.FK_CPF_ALUNO" FromRole="ALUNO" ToRole="PESSOA" />
-          <NavigationProperty Name="ALUNO_OBJETIVO" Relationship="Self.FK_CPF_ALUNO_AOBJETIVO" FromRole="ALUNO" ToRole="ALUNO_OBJETIVO" />
-          <NavigationProperty Name="TREINAMENTO" Relationship="Self.FK_CPF_ALUNO_TREINAMENTO" FromRole="ALUNO" ToRole="TREINAMENTO" />
-          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_CPF_FUNCIONARIO" FromRole="ALUNO" ToRole="FUNCIONARIO" />
-          <NavigationProperty Name="MEDICAO" Relationship="Self.FK_CPF_MEDICAO" FromRole="ALUNO" ToRole="MEDICAO" />
+          <NavigationProperty Name="PESSOA" Relationship="Model.FK_CPF_ALUNO" FromRole="ALUNO" ToRole="PESSOA" />
+          <NavigationProperty Name="ALUNO_OBJETIVO" Relationship="Model.FK_CPF_ALUNO_AOBJETIVO" FromRole="ALUNO" ToRole="ALUNO_OBJETIVO" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Model.FK_CPF_FUNCIONARIO" FromRole="ALUNO" ToRole="FUNCIONARIO" />
+          <NavigationProperty Name="MEDICAO" Relationship="Model.FK_CPF_MEDICAO" FromRole="ALUNO" ToRole="MEDICAO" />
           <NavigationProperty Name="FICHA" Relationship="Model.FK_FICHA" FromRole="ALUNO" ToRole="FICHA" />
-          <NavigationProperty Name="FICHA_SIGLA" Relationship="Model.FK_FICHA_SIGLA_ALUNO" FromRole="ALUNO" ToRole="FICHA_SIGLA" />
         </EntityType>
         <EntityType Name="ALUNO_OBJETIVO">
           <Key>
@@ -439,16 +478,16 @@
           <Property Name="DIN_ALUOBJ" Type="DateTime" />
           <Property Name="DFI_ALUOBJ" Type="DateTime" />
           <Property Name="STA_ALUOBJ" Type="Boolean" />
-          <NavigationProperty Name="ALUNO" Relationship="Self.FK_CPF_ALUNO_AOBJETIVO" FromRole="ALUNO_OBJETIVO" ToRole="ALUNO" />
-          <NavigationProperty Name="CADASTRO_OBJETIVO" Relationship="Self.FK_COD_OBJETIVO" FromRole="ALUNO_OBJETIVO" ToRole="CADASTRO_OBJETIVO" />
+          <NavigationProperty Name="ALUNO" Relationship="Model.FK_CPF_ALUNO_AOBJETIVO" FromRole="ALUNO_OBJETIVO" ToRole="ALUNO" />
+          <NavigationProperty Name="CADASTRO_OBJETIVO" Relationship="Model.FK_COD_OBJETIVO" FromRole="ALUNO_OBJETIVO" ToRole="CADASTRO_OBJETIVO" />
         </EntityType>
         <EntityType Name="CADASTRO_OBJETIVO">
           <Key>
             <PropertyRef Name="COD_OBJETIVO" />
           </Key>
           <Property Name="COD_OBJETIVO" Type="Int16" Nullable="false" />
-          <Property Name="NOM_OBJETIVO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ALUNO_OBJETIVO" Relationship="Self.FK_COD_OBJETIVO" FromRole="CADASTRO_OBJETIVO" ToRole="ALUNO_OBJETIVO" />
+          <Property Name="NOM_OBJETIVO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ALUNO_OBJETIVO" Relationship="Model.FK_COD_OBJETIVO" FromRole="CADASTRO_OBJETIVO" ToRole="ALUNO_OBJETIVO" />
         </EntityType>
         <EntityType Name="EXERCICIO">
           <Key>
@@ -460,322 +499,12 @@
           <Property Name="SIG_EXERCICIO" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="STA_EXERCICIO" Type="Boolean" />
           <Property Name="TIP_EXERCICIO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TREINAMENTO" Relationship="Self.FK_COD_EXERCICIO" FromRole="EXERCICIO" ToRole="TREINAMENTO" />
-          <NavigationProperty Name="GRUPO_MUSCULAR" Relationship="Self.FK_COD_GRUPO_MUSCULAR" FromRole="EXERCICIO" ToRole="GRUPO_MUSCULAR" />
+          <NavigationProperty Name="TREINAMENTO" Relationship="Model.FK_COD_EXERCICIO" FromRole="EXERCICIO" ToRole="TREINAMENTO" />
+          <NavigationProperty Name="GRUPO_MUSCULAR" Relationship="Model.FK_COD_GRUPO_MUSCULAR" FromRole="EXERCICIO" ToRole="GRUPO_MUSCULAR" />
         </EntityType>
-        <EntityType Name="FUNCAO">
-          <Key>
-            <PropertyRef Name="COD_FUNCAO" />
-          </Key>
-          <Property Name="COD_FUNCAO" Type="Byte" Nullable="false" />
-          <Property Name="NOM_FUNCAO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_FUNCIONARIO_FUNCAO" FromRole="FUNCAO" ToRole="FUNCIONARIO" />
-        </EntityType>
-        <EntityType Name="FUNCIONARIO">
-          <Key>
-            <PropertyRef Name="CPF_PESSOA" />
-          </Key>
-          <Property Name="CPF_PESSOA" Type="Int64" Nullable="false" />
-          <Property Name="COD_FUNCAO" Type="Byte" Nullable="false" />
-          <Property Name="CTP_PESSOA" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PIS_FUNCIONARIO" Type="Int64" Nullable="false" />
-          <Property Name="RES_FUNCIONARIO" Type="Int64" Nullable="false" />
-          <Property Name="CRE_FUNCIONARIO" Type="Int64" Nullable="false" />
-          <Property Name="STA_FUNCIONARIO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ALUNO" Relationship="Self.FK_CPF_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="ALUNO" />
-          <NavigationProperty Name="FUNCAO" Relationship="Self.FK_FUNCIONARIO_FUNCAO" FromRole="FUNCIONARIO" ToRole="FUNCAO" />
-          <NavigationProperty Name="MEDICAO" Relationship="Self.FK_CPF_FUNCIONARIO_MEDICAO" FromRole="FUNCIONARIO" ToRole="MEDICAO" />
-          <NavigationProperty Name="PESSOA" Relationship="Self.FK_CPF_PESSOA" FromRole="FUNCIONARIO" ToRole="PESSOA" />
-        </EntityType>
-        <EntityType Name="GRUPO_MUSCULAR">
-          <Key>
-            <PropertyRef Name="COD_GRUPOMUSCULAR" />
-          </Key>
-          <Property Name="COD_GRUPOMUSCULAR" Type="Int16" Nullable="false" />
-          <Property Name="NOM_GRUPOMUSCULAR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="EXERCICIO" Relationship="Self.FK_COD_GRUPO_MUSCULAR" FromRole="GRUPO_MUSCULAR" ToRole="EXERCICIO" />
-        </EntityType>
-        <EntityType Name="MEDICAO">
-          <Key>
-            <PropertyRef Name="CPF_ALUNO" />
-            <PropertyRef Name="DAT_MEDICAO" />
-          </Key>
-          <Property Name="CPF_ALUNO" Type="Int64" Nullable="false" />
-          <Property Name="DAT_MEDICAO" Type="DateTime" Nullable="false" />
-          <Property Name="CPF_FUNCIONARIO" Type="Int64" Nullable="false" />
-          <Property Name="PES_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="ALT_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="BUS_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="TOR_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="CIN_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="ABD_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="QUA_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="COE_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="COD_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="PAE_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="PAD_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="BRE_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="BRD_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="ANE_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="AND_MEDICAO" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
-          <NavigationProperty Name="ALUNO" Relationship="Self.FK_CPF_MEDICAO" FromRole="MEDICAO" ToRole="ALUNO" />
-          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_CPF_FUNCIONARIO_MEDICAO" FromRole="MEDICAO" ToRole="FUNCIONARIO" />
-        </EntityType>
-        <EntityType Name="PESSOA">
-          <Key>
-            <PropertyRef Name="CPF_PESSOA" />
-          </Key>
-          <Property Name="CPF_PESSOA" Type="Int64" Nullable="false" />
-          <Property Name="NOM_PESSOA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SNO_PESSOA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DNA_PESSOA" Type="DateTime" Nullable="false" />
-          <Property Name="DCA_PESSOA" Type="DateTime" Nullable="false" />
-          <Property Name="SEX_PESSOA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="PAI_PESSOA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CID_PESSOA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BAI_PESSOA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="END_PESSOA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NEN_PESSOA" Type="Int16" Nullable="false" />
-          <Property Name="CEP_PESSOA" Type="Int32" Nullable="false" />
-          <Property Name="TEL_PESSOA" Type="Int32" Nullable="false" />
-          <Property Name="TEM_PESSOA" Type="Int32" Nullable="false" />
-          <Property Name="RG_PESSOA" Type="Int32" Nullable="false" />
-          <Property Name="SEN_PESSOA" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EMA_PESSOA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FPE_PESSOA" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ALUNO" Relationship="Self.FK_CPF_ALUNO" FromRole="PESSOA" ToRole="ALUNO" />
-          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_CPF_PESSOA" FromRole="PESSOA" ToRole="FUNCIONARIO" />
-        </EntityType>
-        <EntityType Name="TREINAMENTO">
-          <Key>
-            <PropertyRef Name="COD_EXERCICIO" />
-            <PropertyRef Name="CPF_ALUNO" />
-            <PropertyRef Name="COD_FICHA" />
-          </Key>
-          <Property Name="COD_EXERCICIO" Type="Int16" Nullable="false" />
-          <Property Name="CPF_ALUNO" Type="Int64" Nullable="false" />
-          <Property Name="REP_TREINAMENTO" Type="Int16" />
-          <Property Name="SER_TREINAMENTO" Type="Int16" />
-          <Property Name="CAR_TREINAMENTO" Type="Int16" />
-          <Property Name="TEM_TREINAMENTO" Type="Int16" />
-          <Property Name="PON_TREINAMENTO" Type="Int16" />
-          <Property Name="STA_TREINAMENTO" Type="Boolean" />
-          <NavigationProperty Name="ALUNO" Relationship="Self.FK_CPF_ALUNO_TREINAMENTO" FromRole="TREINAMENTO" ToRole="ALUNO" />
-          <NavigationProperty Name="EXERCICIO" Relationship="Self.FK_COD_EXERCICIO" FromRole="TREINAMENTO" ToRole="EXERCICIO" />
-          <Property Name="COD_FICHA" Type="Int16" Nullable="false" />
-          <Property Name="QTD_REPET_TREINAMENTO" Type="Byte" />
-          <Property Name="QTD_REPET_SIGLA" Type="Byte" />
-          <Property Name="REP_FICHA" Type="Byte" />
-          <NavigationProperty Name="FICHA" Relationship="Model.FK_TREINAMENTO_FICHA_SIGLA" FromRole="TREINAMENTO" ToRole="FICHA" />
-        </EntityType>
-        <Association Name="FK_CPF_ALUNO">
-          <End Role="PESSOA" Type="Self.PESSOA" Multiplicity="1" />
-          <End Role="ALUNO" Type="Self.ALUNO" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PESSOA">
-              <PropertyRef Name="CPF_PESSOA" />
-            </Principal>
-            <Dependent Role="ALUNO">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CPF_ALUNO_AOBJETIVO">
-          <End Role="ALUNO" Type="Self.ALUNO" Multiplicity="1" />
-          <End Role="ALUNO_OBJETIVO" Type="Self.ALUNO_OBJETIVO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ALUNO">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Principal>
-            <Dependent Role="ALUNO_OBJETIVO">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CPF_ALUNO_TREINAMENTO">
-          <End Role="ALUNO" Type="Self.ALUNO" Multiplicity="1" />
-          <End Role="TREINAMENTO" Type="Self.TREINAMENTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ALUNO">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Principal>
-            <Dependent Role="TREINAMENTO">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CPF_FUNCIONARIO">
-          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
-          <End Role="ALUNO" Type="Self.ALUNO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FUNCIONARIO">
-              <PropertyRef Name="CPF_PESSOA" />
-            </Principal>
-            <Dependent Role="ALUNO">
-              <PropertyRef Name="CPF_FUNCIONARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CPF_MEDICAO">
-          <End Role="ALUNO" Type="Self.ALUNO" Multiplicity="1" />
-          <End Role="MEDICAO" Type="Self.MEDICAO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ALUNO">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Principal>
-            <Dependent Role="MEDICAO">
-              <PropertyRef Name="CPF_ALUNO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_COD_OBJETIVO">
-          <End Role="CADASTRO_OBJETIVO" Type="Self.CADASTRO_OBJETIVO" Multiplicity="1" />
-          <End Role="ALUNO_OBJETIVO" Type="Self.ALUNO_OBJETIVO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CADASTRO_OBJETIVO">
-              <PropertyRef Name="COD_OBJETIVO" />
-            </Principal>
-            <Dependent Role="ALUNO_OBJETIVO">
-              <PropertyRef Name="COD_OBJETIVO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_COD_EXERCICIO">
-          <End Role="EXERCICIO" Type="Self.EXERCICIO" Multiplicity="1" />
-          <End Role="TREINAMENTO" Type="Self.TREINAMENTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EXERCICIO">
-              <PropertyRef Name="COD_EXERCICIO" />
-            </Principal>
-            <Dependent Role="TREINAMENTO">
-              <PropertyRef Name="COD_EXERCICIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_COD_GRUPO_MUSCULAR">
-          <End Role="GRUPO_MUSCULAR" Type="Self.GRUPO_MUSCULAR" Multiplicity="1" />
-          <End Role="EXERCICIO" Type="Self.EXERCICIO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GRUPO_MUSCULAR">
-              <PropertyRef Name="COD_GRUPOMUSCULAR" />
-            </Principal>
-            <Dependent Role="EXERCICIO">
-              <PropertyRef Name="COD_GRUMUSC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FUNCIONARIO_FUNCAO">
-          <End Role="FUNCAO" Type="Self.FUNCAO" Multiplicity="1" />
-          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FUNCAO">
-              <PropertyRef Name="COD_FUNCAO" />
-            </Principal>
-            <Dependent Role="FUNCIONARIO">
-              <PropertyRef Name="COD_FUNCAO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CPF_FUNCIONARIO_MEDICAO">
-          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
-          <End Role="MEDICAO" Type="Self.MEDICAO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FUNCIONARIO">
-              <PropertyRef Name="CPF_PESSOA" />
-            </Principal>
-            <Dependent Role="MEDICAO">
-              <PropertyRef Name="CPF_FUNCIONARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CPF_PESSOA">
-          <End Role="PESSOA" Type="Self.PESSOA" Multiplicity="1" />
-          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="PESSOA">
-              <PropertyRef Name="CPF_PESSOA" />
-            </Principal>
-            <Dependent Role="FUNCIONARIO">
-              <PropertyRef Name="CPF_PESSOA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ALUNO" EntityType="Self.ALUNO" />
-          <EntitySet Name="ALUNO_OBJETIVO" EntityType="Self.ALUNO_OBJETIVO" />
-          <EntitySet Name="CADASTRO_OBJETIVO" EntityType="Self.CADASTRO_OBJETIVO" />
-          <EntitySet Name="EXERCICIO" EntityType="Self.EXERCICIO" />
-          <EntitySet Name="FUNCAO" EntityType="Self.FUNCAO" />
-          <EntitySet Name="FUNCIONARIO" EntityType="Self.FUNCIONARIO" />
-          <EntitySet Name="GRUPO_MUSCULAR" EntityType="Self.GRUPO_MUSCULAR" />
-          <EntitySet Name="MEDICAO" EntityType="Self.MEDICAO" />
-          <EntitySet Name="PESSOA" EntityType="Self.PESSOA" />
-          <EntitySet Name="TREINAMENTO" EntityType="Self.TREINAMENTO" />
-          <AssociationSet Name="FK_CPF_ALUNO" Association="Self.FK_CPF_ALUNO">
-            <End Role="PESSOA" EntitySet="PESSOA" />
-            <End Role="ALUNO" EntitySet="ALUNO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CPF_ALUNO_AOBJETIVO" Association="Self.FK_CPF_ALUNO_AOBJETIVO">
-            <End Role="ALUNO" EntitySet="ALUNO" />
-            <End Role="ALUNO_OBJETIVO" EntitySet="ALUNO_OBJETIVO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CPF_ALUNO_TREINAMENTO" Association="Self.FK_CPF_ALUNO_TREINAMENTO">
-            <End Role="ALUNO" EntitySet="ALUNO" />
-            <End Role="TREINAMENTO" EntitySet="TREINAMENTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CPF_FUNCIONARIO" Association="Self.FK_CPF_FUNCIONARIO">
-            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
-            <End Role="ALUNO" EntitySet="ALUNO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CPF_MEDICAO" Association="Self.FK_CPF_MEDICAO">
-            <End Role="ALUNO" EntitySet="ALUNO" />
-            <End Role="MEDICAO" EntitySet="MEDICAO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_COD_OBJETIVO" Association="Self.FK_COD_OBJETIVO">
-            <End Role="CADASTRO_OBJETIVO" EntitySet="CADASTRO_OBJETIVO" />
-            <End Role="ALUNO_OBJETIVO" EntitySet="ALUNO_OBJETIVO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_COD_EXERCICIO" Association="Self.FK_COD_EXERCICIO">
-            <End Role="EXERCICIO" EntitySet="EXERCICIO" />
-            <End Role="TREINAMENTO" EntitySet="TREINAMENTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_COD_GRUPO_MUSCULAR" Association="Self.FK_COD_GRUPO_MUSCULAR">
-            <End Role="GRUPO_MUSCULAR" EntitySet="GRUPO_MUSCULAR" />
-            <End Role="EXERCICIO" EntitySet="EXERCICIO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FUNCIONARIO_FUNCAO" Association="Self.FK_FUNCIONARIO_FUNCAO">
-            <End Role="FUNCAO" EntitySet="FUNCAO" />
-            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CPF_FUNCIONARIO_MEDICAO" Association="Self.FK_CPF_FUNCIONARIO_MEDICAO">
-            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
-            <End Role="MEDICAO" EntitySet="MEDICAO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CPF_PESSOA" Association="Self.FK_CPF_PESSOA">
-            <End Role="PESSOA" EntitySet="PESSOA" />
-            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
-          </AssociationSet>
-          <EntitySet Name="FICHA" EntityType="Model.FICHA" />
-          <EntitySet Name="FICHA_SIGLA" EntityType="Model.FICHA_SIGLA" />
-          <AssociationSet Name="FK_FICHA" Association="Model.FK_FICHA">
-            <End Role="ALUNO" EntitySet="ALUNO" />
-            <End Role="FICHA" EntitySet="FICHA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FICHA_SIGLA_ALUNO" Association="Model.FK_FICHA_SIGLA_ALUNO">
-            <End Role="ALUNO" EntitySet="ALUNO" />
-            <End Role="FICHA_SIGLA" EntitySet="FICHA_SIGLA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FICHA_SIGLA_FICHA" Association="Model.FK_FICHA_SIGLA_FICHA">
-            <End Role="FICHA" EntitySet="FICHA" />
-            <End Role="FICHA_SIGLA" EntitySet="FICHA_SIGLA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TREINAMENTO_FICHA_SIGLA" Association="Model.FK_TREINAMENTO_FICHA_SIGLA">
-            <End Role="FICHA" EntitySet="FICHA" />
-            <End Role="TREINAMENTO" EntitySet="TREINAMENTO" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="FICHA">
           <Key>
+            <PropertyRef Name="CPF_ALUNO" />
             <PropertyRef Name="COD_FICHA" />
           </Key>
           <Property Name="CPF_ALUNO" Type="Int64" Nullable="false" />
@@ -790,15 +519,168 @@
           <Key>
             <PropertyRef Name="CPF_ALUNO" />
             <PropertyRef Name="COD_FICHA" />
+            <PropertyRef Name="COD_FICHA_SIGLA" />
           </Key>
           <Property Name="CPF_ALUNO" Type="Int64" Nullable="false" />
           <Property Name="COD_FICHA" Type="Int16" Nullable="false" />
+          <Property Name="COD_FICHA_SIGLA" Type="Int16" Nullable="false" />
           <Property Name="QTD_REPET_SIGLA" Type="Byte" Nullable="false" />
           <Property Name="TIPO_SIGLA" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="STATUS_SIGLA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="ALUNO" Relationship="Model.FK_FICHA_SIGLA_ALUNO" FromRole="FICHA_SIGLA" ToRole="ALUNO" />
           <NavigationProperty Name="FICHA" Relationship="Model.FK_FICHA_SIGLA_FICHA" FromRole="FICHA_SIGLA" ToRole="FICHA" />
         </EntityType>
+        <EntityType Name="FUNCAO">
+          <Key>
+            <PropertyRef Name="COD_FUNCAO" />
+          </Key>
+          <Property Name="COD_FUNCAO" Type="Byte" Nullable="false" />
+          <Property Name="NOM_FUNCAO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Model.FK_FUNCIONARIO_FUNCAO" FromRole="FUNCAO" ToRole="FUNCIONARIO" />
+        </EntityType>
+        <EntityType Name="FUNCIONARIO">
+          <Key>
+            <PropertyRef Name="CPF_PESSOA" />
+          </Key>
+          <Property Name="CPF_PESSOA" Type="Int64" Nullable="false" />
+          <Property Name="COD_FUNCAO" Type="Byte" Nullable="false" />
+          <Property Name="CTP_PESSOA" Type="String" Nullable="false" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="PIS_FUNCIONARIO" Type="Int64" Nullable="false" />
+          <Property Name="RES_FUNCIONARIO" Type="Int64" Nullable="false" />
+          <Property Name="CRE_FUNCIONARIO" Type="Int64" Nullable="false" />
+          <Property Name="STA_FUNCIONARIO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ALUNO" Relationship="Model.FK_CPF_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="ALUNO" />
+          <NavigationProperty Name="FUNCAO" Relationship="Model.FK_FUNCIONARIO_FUNCAO" FromRole="FUNCIONARIO" ToRole="FUNCAO" />
+          <NavigationProperty Name="MEDICAO" Relationship="Model.FK_CPF_FUNCIONARIO_MEDICAO" FromRole="FUNCIONARIO" ToRole="MEDICAO" />
+          <NavigationProperty Name="PESSOA" Relationship="Model.FK_CPF_PESSOA" FromRole="FUNCIONARIO" ToRole="PESSOA" />
+        </EntityType>
+        <EntityType Name="GRUPO_MUSCULAR">
+          <Key>
+            <PropertyRef Name="COD_GRUPOMUSCULAR" />
+          </Key>
+          <Property Name="COD_GRUPOMUSCULAR" Type="Int16" Nullable="false" />
+          <Property Name="NOM_GRUPOMUSCULAR" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EXERCICIO" Relationship="Model.FK_COD_GRUPO_MUSCULAR" FromRole="GRUPO_MUSCULAR" ToRole="EXERCICIO" />
+        </EntityType>
+        <EntityType Name="MEDICAO">
+          <Key>
+            <PropertyRef Name="CPF_ALUNO" />
+            <PropertyRef Name="DAT_MEDICAO" />
+          </Key>
+          <Property Name="CPF_ALUNO" Type="Int64" Nullable="false" />
+          <Property Name="DAT_MEDICAO" Type="DateTime" Nullable="false" />
+          <Property Name="CPF_FUNCIONARIO" Type="Int64" Nullable="false" />
+          <Property Name="PES_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="ALT_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="BUS_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="TOR_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="CIN_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="ABD_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="QUA_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="COE_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="COD_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="PAE_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="PAD_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="BRE_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="BRD_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="ANE_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="AND_MEDICAO" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <NavigationProperty Name="ALUNO" Relationship="Model.FK_CPF_MEDICAO" FromRole="MEDICAO" ToRole="ALUNO" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Model.FK_CPF_FUNCIONARIO_MEDICAO" FromRole="MEDICAO" ToRole="FUNCIONARIO" />
+        </EntityType>
+        <EntityType Name="PESSOA">
+          <Key>
+            <PropertyRef Name="CPF_PESSOA" />
+          </Key>
+          <Property Name="CPF_PESSOA" Type="Int64" Nullable="false" />
+          <Property Name="NOM_PESSOA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SNO_PESSOA" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DNA_PESSOA" Type="DateTime" Nullable="false" />
+          <Property Name="DCA_PESSOA" Type="DateTime" Nullable="false" />
+          <Property Name="SEX_PESSOA" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="PAI_PESSOA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CID_PESSOA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BAI_PESSOA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="END_PESSOA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NEN_PESSOA" Type="Int16" Nullable="false" />
+          <Property Name="CEP_PESSOA" Type="Int32" Nullable="false" />
+          <Property Name="TEL_PESSOA" Type="Int32" Nullable="false" />
+          <Property Name="TEM_PESSOA" Type="Int32" Nullable="false" />
+          <Property Name="RG_PESSOA" Type="Int32" Nullable="false" />
+          <Property Name="SEN_PESSOA" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="EMA_PESSOA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FPE_PESSOA" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ALUNO" Relationship="Model.FK_CPF_ALUNO" FromRole="PESSOA" ToRole="ALUNO" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Model.FK_CPF_PESSOA" FromRole="PESSOA" ToRole="FUNCIONARIO" />
+        </EntityType>
+        <EntityType Name="TREINAMENTO">
+          <Key>
+            <PropertyRef Name="COD_FICHA" />
+            <PropertyRef Name="COD_EXERCICIO" />
+            <PropertyRef Name="CPF_ALUNO" />
+          </Key>
+          <Property Name="COD_FICHA" Type="Int16" Nullable="false" />
+          <Property Name="COD_EXERCICIO" Type="Int16" Nullable="false" />
+          <Property Name="CPF_ALUNO" Type="Int64" Nullable="false" />
+          <Property Name="REP_TREINAMENTO" Type="Int16" />
+          <Property Name="SER_TREINAMENTO" Type="Int16" />
+          <Property Name="CAR_TREINAMENTO" Type="Int16" />
+          <Property Name="TEM_TREINAMENTO" Type="Int16" />
+          <Property Name="PON_TREINAMENTO" Type="Int16" />
+          <Property Name="STA_TREINAMENTO" Type="Boolean" />
+          <Property Name="QTD_REPET_TREINAMENTO" Type="Byte" />
+          <Property Name="QTD_REPET_SIGLA" Type="Byte" />
+          <Property Name="REP_FICHA" Type="Byte" />
+          <NavigationProperty Name="EXERCICIO" Relationship="Model.FK_COD_EXERCICIO" FromRole="TREINAMENTO" ToRole="EXERCICIO" />
+          <NavigationProperty Name="FICHA" Relationship="Model.FK_TREINAMENTO_FICHA_SIGLA" FromRole="TREINAMENTO" ToRole="FICHA" />
+        </EntityType>
+        <Association Name="FK_CPF_ALUNO">
+          <End Type="Model.PESSOA" Role="PESSOA" Multiplicity="1" />
+          <End Type="Model.ALUNO" Role="ALUNO" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PESSOA">
+              <PropertyRef Name="CPF_PESSOA" />
+            </Principal>
+            <Dependent Role="ALUNO">
+              <PropertyRef Name="CPF_ALUNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPF_ALUNO_AOBJETIVO">
+          <End Type="Model.ALUNO" Role="ALUNO" Multiplicity="1" />
+          <End Type="Model.ALUNO_OBJETIVO" Role="ALUNO_OBJETIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALUNO">
+              <PropertyRef Name="CPF_ALUNO" />
+            </Principal>
+            <Dependent Role="ALUNO_OBJETIVO">
+              <PropertyRef Name="CPF_ALUNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPF_FUNCIONARIO">
+          <End Type="Model.FUNCIONARIO" Role="FUNCIONARIO" Multiplicity="1" />
+          <End Type="Model.ALUNO" Role="ALUNO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="CPF_PESSOA" />
+            </Principal>
+            <Dependent Role="ALUNO">
+              <PropertyRef Name="CPF_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPF_MEDICAO">
+          <End Type="Model.ALUNO" Role="ALUNO" Multiplicity="1" />
+          <End Type="Model.MEDICAO" Role="MEDICAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALUNO">
+              <PropertyRef Name="CPF_ALUNO" />
+            </Principal>
+            <Dependent Role="MEDICAO">
+              <PropertyRef Name="CPF_ALUNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FICHA">
           <End Type="Model.ALUNO" Role="ALUNO" Multiplicity="1" />
           <End Type="Model.FICHA" Role="FICHA" Multiplicity="*" />
@@ -811,15 +693,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FICHA_SIGLA_ALUNO">
-          <End Type="Model.ALUNO" Role="ALUNO" Multiplicity="1" />
-          <End Type="Model.FICHA_SIGLA" Role="FICHA_SIGLA" Multiplicity="*" />
+        <Association Name="FK_COD_OBJETIVO">
+          <End Type="Model.CADASTRO_OBJETIVO" Role="CADASTRO_OBJETIVO" Multiplicity="1" />
+          <End Type="Model.ALUNO_OBJETIVO" Role="ALUNO_OBJETIVO" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ALUNO">
-              <PropertyRef Name="CPF_ALUNO" />
+            <Principal Role="CADASTRO_OBJETIVO">
+              <PropertyRef Name="COD_OBJETIVO" />
             </Principal>
-            <Dependent Role="FICHA_SIGLA">
-              <PropertyRef Name="CPF_ALUNO" />
+            <Dependent Role="ALUNO_OBJETIVO">
+              <PropertyRef Name="COD_OBJETIVO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COD_EXERCICIO">
+          <End Type="Model.EXERCICIO" Role="EXERCICIO" Multiplicity="1" />
+          <End Type="Model.TREINAMENTO" Role="TREINAMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXERCICIO">
+              <PropertyRef Name="COD_EXERCICIO" />
+            </Principal>
+            <Dependent Role="TREINAMENTO">
+              <PropertyRef Name="COD_EXERCICIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COD_GRUPO_MUSCULAR">
+          <End Type="Model.GRUPO_MUSCULAR" Role="GRUPO_MUSCULAR" Multiplicity="1" />
+          <End Type="Model.EXERCICIO" Role="EXERCICIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GRUPO_MUSCULAR">
+              <PropertyRef Name="COD_GRUPOMUSCULAR" />
+            </Principal>
+            <Dependent Role="EXERCICIO">
+              <PropertyRef Name="COD_GRUMUSC" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -829,9 +735,11 @@
           <ReferentialConstraint>
             <Principal Role="FICHA">
               <PropertyRef Name="COD_FICHA" />
+              <PropertyRef Name="CPF_ALUNO" />
             </Principal>
             <Dependent Role="FICHA_SIGLA">
               <PropertyRef Name="COD_FICHA" />
+              <PropertyRef Name="CPF_ALUNO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -841,13 +749,51 @@
           <ReferentialConstraint>
             <Principal Role="FICHA">
               <PropertyRef Name="COD_FICHA" />
+              <PropertyRef Name="CPF_ALUNO" />
             </Principal>
             <Dependent Role="TREINAMENTO">
               <PropertyRef Name="COD_FICHA" />
+              <PropertyRef Name="CPF_ALUNO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_FUNCIONARIO_FUNCAO">
+          <End Type="Model.FUNCAO" Role="FUNCAO" Multiplicity="1" />
+          <End Type="Model.FUNCIONARIO" Role="FUNCIONARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCAO">
+              <PropertyRef Name="COD_FUNCAO" />
+            </Principal>
+            <Dependent Role="FUNCIONARIO">
+              <PropertyRef Name="COD_FUNCAO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPF_FUNCIONARIO_MEDICAO">
+          <End Type="Model.FUNCIONARIO" Role="FUNCIONARIO" Multiplicity="1" />
+          <End Type="Model.MEDICAO" Role="MEDICAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="CPF_PESSOA" />
+            </Principal>
+            <Dependent Role="MEDICAO">
+              <PropertyRef Name="CPF_FUNCIONARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPF_PESSOA">
+          <End Type="Model.PESSOA" Role="PESSOA" Multiplicity="1" />
+          <End Type="Model.FUNCIONARIO" Role="FUNCIONARIO" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PESSOA">
+              <PropertyRef Name="CPF_PESSOA" />
+            </Principal>
+            <Dependent Role="FUNCIONARIO">
+              <PropertyRef Name="CPF_PESSOA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -856,136 +802,41 @@
           <EntitySetMapping Name="ALUNO">
             <EntityTypeMapping TypeName="Model.ALUNO">
               <MappingFragment StoreEntitySet="ALUNO">
-                <ScalarProperty Name="CPF_ALUNO" ColumnName="CPF_ALUNO" />
-                <ScalarProperty Name="CPF_FUNCIONARIO" ColumnName="CPF_FUNCIONARIO" />
                 <ScalarProperty Name="STA_ALUNO" ColumnName="STA_ALUNO" />
+                <ScalarProperty Name="CPF_FUNCIONARIO" ColumnName="CPF_FUNCIONARIO" />
+                <ScalarProperty Name="CPF_ALUNO" ColumnName="CPF_ALUNO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ALUNO_OBJETIVO">
             <EntityTypeMapping TypeName="Model.ALUNO_OBJETIVO">
               <MappingFragment StoreEntitySet="ALUNO_OBJETIVO">
-                <ScalarProperty Name="COD_ALUOBJ" ColumnName="COD_ALUOBJ" />
-                <ScalarProperty Name="COD_OBJETIVO" ColumnName="COD_OBJETIVO" />
-                <ScalarProperty Name="CPF_ALUNO" ColumnName="CPF_ALUNO" />
-                <ScalarProperty Name="DIN_ALUOBJ" ColumnName="DIN_ALUOBJ" />
-                <ScalarProperty Name="DFI_ALUOBJ" ColumnName="DFI_ALUOBJ" />
                 <ScalarProperty Name="STA_ALUOBJ" ColumnName="STA_ALUOBJ" />
+                <ScalarProperty Name="DFI_ALUOBJ" ColumnName="DFI_ALUOBJ" />
+                <ScalarProperty Name="DIN_ALUOBJ" ColumnName="DIN_ALUOBJ" />
+                <ScalarProperty Name="CPF_ALUNO" ColumnName="CPF_ALUNO" />
+                <ScalarProperty Name="COD_OBJETIVO" ColumnName="COD_OBJETIVO" />
+                <ScalarProperty Name="COD_ALUOBJ" ColumnName="COD_ALUOBJ" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CADASTRO_OBJETIVO">
             <EntityTypeMapping TypeName="Model.CADASTRO_OBJETIVO">
               <MappingFragment StoreEntitySet="CADASTRO_OBJETIVO">
-                <ScalarProperty Name="COD_OBJETIVO" ColumnName="COD_OBJETIVO" />
                 <ScalarProperty Name="NOM_OBJETIVO" ColumnName="NOM_OBJETIVO" />
+                <ScalarProperty Name="COD_OBJETIVO" ColumnName="COD_OBJETIVO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EXERCICIO">
             <EntityTypeMapping TypeName="Model.EXERCICIO">
               <MappingFragment StoreEntitySet="EXERCICIO">
-                <ScalarProperty Name="COD_EXERCICIO" ColumnName="COD_EXERCICIO" />
-                <ScalarProperty Name="COD_GRUMUSC" ColumnName="COD_GRUMUSC" />
-                <ScalarProperty Name="NOM_EXERCICIO" ColumnName="NOM_EXERCICIO" />
-                <ScalarProperty Name="SIG_EXERCICIO" ColumnName="SIG_EXERCICIO" />
-                <ScalarProperty Name="STA_EXERCICIO" ColumnName="STA_EXERCICIO" />
                 <ScalarProperty Name="TIP_EXERCICIO" ColumnName="TIP_EXERCICIO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FUNCAO">
-            <EntityTypeMapping TypeName="Model.FUNCAO">
-              <MappingFragment StoreEntitySet="FUNCAO">
-                <ScalarProperty Name="COD_FUNCAO" ColumnName="COD_FUNCAO" />
-                <ScalarProperty Name="NOM_FUNCAO" ColumnName="NOM_FUNCAO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FUNCIONARIO">
-            <EntityTypeMapping TypeName="Model.FUNCIONARIO">
-              <MappingFragment StoreEntitySet="FUNCIONARIO">
-                <ScalarProperty Name="CPF_PESSOA" ColumnName="CPF_PESSOA" />
-                <ScalarProperty Name="COD_FUNCAO" ColumnName="COD_FUNCAO" />
-                <ScalarProperty Name="CTP_PESSOA" ColumnName="CTP_PESSOA" />
-                <ScalarProperty Name="PIS_FUNCIONARIO" ColumnName="PIS_FUNCIONARIO" />
-                <ScalarProperty Name="RES_FUNCIONARIO" ColumnName="RES_FUNCIONARIO" />
-                <ScalarProperty Name="CRE_FUNCIONARIO" ColumnName="CRE_FUNCIONARIO" />
-                <ScalarProperty Name="STA_FUNCIONARIO" ColumnName="STA_FUNCIONARIO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GRUPO_MUSCULAR">
-            <EntityTypeMapping TypeName="Model.GRUPO_MUSCULAR">
-              <MappingFragment StoreEntitySet="GRUPO_MUSCULAR">
-                <ScalarProperty Name="COD_GRUPOMUSCULAR" ColumnName="COD_GRUPOMUSCULAR" />
-                <ScalarProperty Name="NOM_GRUPOMUSCULAR" ColumnName="NOM_GRUPOMUSCULAR" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MEDICAO">
-            <EntityTypeMapping TypeName="Model.MEDICAO">
-              <MappingFragment StoreEntitySet="MEDICAO">
-                <ScalarProperty Name="CPF_ALUNO" ColumnName="CPF_ALUNO" />
-                <ScalarProperty Name="DAT_MEDICAO" ColumnName="DAT_MEDICAO" />
-                <ScalarProperty Name="CPF_FUNCIONARIO" ColumnName="CPF_FUNCIONARIO" />
-                <ScalarProperty Name="PES_MEDICAO" ColumnName="PES_MEDICAO" />
-                <ScalarProperty Name="ALT_MEDICAO" ColumnName="ALT_MEDICAO" />
-                <ScalarProperty Name="BUS_MEDICAO" ColumnName="BUS_MEDICAO" />
-                <ScalarProperty Name="TOR_MEDICAO" ColumnName="TOR_MEDICAO" />
-                <ScalarProperty Name="CIN_MEDICAO" ColumnName="CIN_MEDICAO" />
-                <ScalarProperty Name="ABD_MEDICAO" ColumnName="ABD_MEDICAO" />
-                <ScalarProperty Name="QUA_MEDICAO" ColumnName="QUA_MEDICAO" />
-                <ScalarProperty Name="COE_MEDICAO" ColumnName="COE_MEDICAO" />
-                <ScalarProperty Name="COD_MEDICAO" ColumnName="COD_MEDICAO" />
-                <ScalarProperty Name="PAE_MEDICAO" ColumnName="PAE_MEDICAO" />
-                <ScalarProperty Name="PAD_MEDICAO" ColumnName="PAD_MEDICAO" />
-                <ScalarProperty Name="BRE_MEDICAO" ColumnName="BRE_MEDICAO" />
-                <ScalarProperty Name="BRD_MEDICAO" ColumnName="BRD_MEDICAO" />
-                <ScalarProperty Name="ANE_MEDICAO" ColumnName="ANE_MEDICAO" />
-                <ScalarProperty Name="AND_MEDICAO" ColumnName="AND_MEDICAO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PESSOA">
-            <EntityTypeMapping TypeName="Model.PESSOA">
-              <MappingFragment StoreEntitySet="PESSOA">
-                <ScalarProperty Name="CPF_PESSOA" ColumnName="CPF_PESSOA" />
-                <ScalarProperty Name="NOM_PESSOA" ColumnName="NOM_PESSOA" />
-                <ScalarProperty Name="SNO_PESSOA" ColumnName="SNO_PESSOA" />
-                <ScalarProperty Name="DNA_PESSOA" ColumnName="DNA_PESSOA" />
-                <ScalarProperty Name="DCA_PESSOA" ColumnName="DCA_PESSOA" />
-                <ScalarProperty Name="SEX_PESSOA" ColumnName="SEX_PESSOA" />
-                <ScalarProperty Name="PAI_PESSOA" ColumnName="PAI_PESSOA" />
-                <ScalarProperty Name="CID_PESSOA" ColumnName="CID_PESSOA" />
-                <ScalarProperty Name="BAI_PESSOA" ColumnName="BAI_PESSOA" />
-                <ScalarProperty Name="END_PESSOA" ColumnName="END_PESSOA" />
-                <ScalarProperty Name="NEN_PESSOA" ColumnName="NEN_PESSOA" />
-                <ScalarProperty Name="CEP_PESSOA" ColumnName="CEP_PESSOA" />
-                <ScalarProperty Name="TEL_PESSOA" ColumnName="TEL_PESSOA" />
-                <ScalarProperty Name="TEM_PESSOA" ColumnName="TEM_PESSOA" />
-                <ScalarProperty Name="RG_PESSOA" ColumnName="RG_PESSOA" />
-                <ScalarProperty Name="SEN_PESSOA" ColumnName="SEN_PESSOA" />
-                <ScalarProperty Name="EMA_PESSOA" ColumnName="EMA_PESSOA" />
-                <ScalarProperty Name="FPE_PESSOA" ColumnName="FPE_PESSOA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TREINAMENTO">
-            <EntityTypeMapping TypeName="Model.TREINAMENTO">
-              <MappingFragment StoreEntitySet="TREINAMENTO">
-                <ScalarProperty Name="REP_FICHA" ColumnName="REP_FICHA" />
-                <ScalarProperty Name="QTD_REPET_SIGLA" ColumnName="QTD_REPET_SIGLA" />
-                <ScalarProperty Name="QTD_REPET_TREINAMENTO" ColumnName="QTD_REPET_TREINAMENTO" />
-                <ScalarProperty Name="COD_FICHA" ColumnName="COD_FICHA" />
+                <ScalarProperty Name="STA_EXERCICIO" ColumnName="STA_EXERCICIO" />
+                <ScalarProperty Name="SIG_EXERCICIO" ColumnName="SIG_EXERCICIO" />
+                <ScalarProperty Name="NOM_EXERCICIO" ColumnName="NOM_EXERCICIO" />
+                <ScalarProperty Name="COD_GRUMUSC" ColumnName="COD_GRUMUSC" />
                 <ScalarProperty Name="COD_EXERCICIO" ColumnName="COD_EXERCICIO" />
-                <ScalarProperty Name="CPF_ALUNO" ColumnName="CPF_ALUNO" />
-                <ScalarProperty Name="REP_TREINAMENTO" ColumnName="REP_TREINAMENTO" />
-                <ScalarProperty Name="SER_TREINAMENTO" ColumnName="SER_TREINAMENTO" />
-                <ScalarProperty Name="CAR_TREINAMENTO" ColumnName="CAR_TREINAMENTO" />
-                <ScalarProperty Name="TEM_TREINAMENTO" ColumnName="TEM_TREINAMENTO" />
-                <ScalarProperty Name="PON_TREINAMENTO" ColumnName="PON_TREINAMENTO" />
-                <ScalarProperty Name="STA_TREINAMENTO" ColumnName="STA_TREINAMENTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1005,8 +856,104 @@
                 <ScalarProperty Name="STATUS_SIGLA" ColumnName="STATUS_SIGLA" />
                 <ScalarProperty Name="TIPO_SIGLA" ColumnName="TIPO_SIGLA" />
                 <ScalarProperty Name="QTD_REPET_SIGLA" ColumnName="QTD_REPET_SIGLA" />
+                <ScalarProperty Name="COD_FICHA_SIGLA" ColumnName="COD_FICHA_SIGLA" />
                 <ScalarProperty Name="COD_FICHA" ColumnName="COD_FICHA" />
                 <ScalarProperty Name="CPF_ALUNO" ColumnName="CPF_ALUNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNCAO">
+            <EntityTypeMapping TypeName="Model.FUNCAO">
+              <MappingFragment StoreEntitySet="FUNCAO">
+                <ScalarProperty Name="NOM_FUNCAO" ColumnName="NOM_FUNCAO" />
+                <ScalarProperty Name="COD_FUNCAO" ColumnName="COD_FUNCAO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNCIONARIO">
+            <EntityTypeMapping TypeName="Model.FUNCIONARIO">
+              <MappingFragment StoreEntitySet="FUNCIONARIO">
+                <ScalarProperty Name="STA_FUNCIONARIO" ColumnName="STA_FUNCIONARIO" />
+                <ScalarProperty Name="CRE_FUNCIONARIO" ColumnName="CRE_FUNCIONARIO" />
+                <ScalarProperty Name="RES_FUNCIONARIO" ColumnName="RES_FUNCIONARIO" />
+                <ScalarProperty Name="PIS_FUNCIONARIO" ColumnName="PIS_FUNCIONARIO" />
+                <ScalarProperty Name="CTP_PESSOA" ColumnName="CTP_PESSOA" />
+                <ScalarProperty Name="COD_FUNCAO" ColumnName="COD_FUNCAO" />
+                <ScalarProperty Name="CPF_PESSOA" ColumnName="CPF_PESSOA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GRUPO_MUSCULAR">
+            <EntityTypeMapping TypeName="Model.GRUPO_MUSCULAR">
+              <MappingFragment StoreEntitySet="GRUPO_MUSCULAR">
+                <ScalarProperty Name="NOM_GRUPOMUSCULAR" ColumnName="NOM_GRUPOMUSCULAR" />
+                <ScalarProperty Name="COD_GRUPOMUSCULAR" ColumnName="COD_GRUPOMUSCULAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDICAO">
+            <EntityTypeMapping TypeName="Model.MEDICAO">
+              <MappingFragment StoreEntitySet="MEDICAO">
+                <ScalarProperty Name="AND_MEDICAO" ColumnName="AND_MEDICAO" />
+                <ScalarProperty Name="ANE_MEDICAO" ColumnName="ANE_MEDICAO" />
+                <ScalarProperty Name="BRD_MEDICAO" ColumnName="BRD_MEDICAO" />
+                <ScalarProperty Name="BRE_MEDICAO" ColumnName="BRE_MEDICAO" />
+                <ScalarProperty Name="PAD_MEDICAO" ColumnName="PAD_MEDICAO" />
+                <ScalarProperty Name="PAE_MEDICAO" ColumnName="PAE_MEDICAO" />
+                <ScalarProperty Name="COD_MEDICAO" ColumnName="COD_MEDICAO" />
+                <ScalarProperty Name="COE_MEDICAO" ColumnName="COE_MEDICAO" />
+                <ScalarProperty Name="QUA_MEDICAO" ColumnName="QUA_MEDICAO" />
+                <ScalarProperty Name="ABD_MEDICAO" ColumnName="ABD_MEDICAO" />
+                <ScalarProperty Name="CIN_MEDICAO" ColumnName="CIN_MEDICAO" />
+                <ScalarProperty Name="TOR_MEDICAO" ColumnName="TOR_MEDICAO" />
+                <ScalarProperty Name="BUS_MEDICAO" ColumnName="BUS_MEDICAO" />
+                <ScalarProperty Name="ALT_MEDICAO" ColumnName="ALT_MEDICAO" />
+                <ScalarProperty Name="PES_MEDICAO" ColumnName="PES_MEDICAO" />
+                <ScalarProperty Name="CPF_FUNCIONARIO" ColumnName="CPF_FUNCIONARIO" />
+                <ScalarProperty Name="DAT_MEDICAO" ColumnName="DAT_MEDICAO" />
+                <ScalarProperty Name="CPF_ALUNO" ColumnName="CPF_ALUNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PESSOA">
+            <EntityTypeMapping TypeName="Model.PESSOA">
+              <MappingFragment StoreEntitySet="PESSOA">
+                <ScalarProperty Name="FPE_PESSOA" ColumnName="FPE_PESSOA" />
+                <ScalarProperty Name="EMA_PESSOA" ColumnName="EMA_PESSOA" />
+                <ScalarProperty Name="SEN_PESSOA" ColumnName="SEN_PESSOA" />
+                <ScalarProperty Name="RG_PESSOA" ColumnName="RG_PESSOA" />
+                <ScalarProperty Name="TEM_PESSOA" ColumnName="TEM_PESSOA" />
+                <ScalarProperty Name="TEL_PESSOA" ColumnName="TEL_PESSOA" />
+                <ScalarProperty Name="CEP_PESSOA" ColumnName="CEP_PESSOA" />
+                <ScalarProperty Name="NEN_PESSOA" ColumnName="NEN_PESSOA" />
+                <ScalarProperty Name="END_PESSOA" ColumnName="END_PESSOA" />
+                <ScalarProperty Name="BAI_PESSOA" ColumnName="BAI_PESSOA" />
+                <ScalarProperty Name="CID_PESSOA" ColumnName="CID_PESSOA" />
+                <ScalarProperty Name="PAI_PESSOA" ColumnName="PAI_PESSOA" />
+                <ScalarProperty Name="SEX_PESSOA" ColumnName="SEX_PESSOA" />
+                <ScalarProperty Name="DCA_PESSOA" ColumnName="DCA_PESSOA" />
+                <ScalarProperty Name="DNA_PESSOA" ColumnName="DNA_PESSOA" />
+                <ScalarProperty Name="SNO_PESSOA" ColumnName="SNO_PESSOA" />
+                <ScalarProperty Name="NOM_PESSOA" ColumnName="NOM_PESSOA" />
+                <ScalarProperty Name="CPF_PESSOA" ColumnName="CPF_PESSOA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TREINAMENTO">
+            <EntityTypeMapping TypeName="Model.TREINAMENTO">
+              <MappingFragment StoreEntitySet="TREINAMENTO">
+                <ScalarProperty Name="REP_FICHA" ColumnName="REP_FICHA" />
+                <ScalarProperty Name="QTD_REPET_SIGLA" ColumnName="QTD_REPET_SIGLA" />
+                <ScalarProperty Name="QTD_REPET_TREINAMENTO" ColumnName="QTD_REPET_TREINAMENTO" />
+                <ScalarProperty Name="STA_TREINAMENTO" ColumnName="STA_TREINAMENTO" />
+                <ScalarProperty Name="PON_TREINAMENTO" ColumnName="PON_TREINAMENTO" />
+                <ScalarProperty Name="TEM_TREINAMENTO" ColumnName="TEM_TREINAMENTO" />
+                <ScalarProperty Name="CAR_TREINAMENTO" ColumnName="CAR_TREINAMENTO" />
+                <ScalarProperty Name="SER_TREINAMENTO" ColumnName="SER_TREINAMENTO" />
+                <ScalarProperty Name="REP_TREINAMENTO" ColumnName="REP_TREINAMENTO" />
+                <ScalarProperty Name="CPF_ALUNO" ColumnName="CPF_ALUNO" />
+                <ScalarProperty Name="COD_EXERCICIO" ColumnName="COD_EXERCICIO" />
+                <ScalarProperty Name="COD_FICHA" ColumnName="COD_FICHA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
